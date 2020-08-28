@@ -6,12 +6,12 @@
  */ 
 
 
-void usart_init(uint16_t ubrr){
+void usart_init(uint16_t baud_rate){
 	UCSR0A |= 0b00000000;
 	UCSR0B |= (1 << TXEN0);
 	UCSR0C |= (1 << UCSZ01);
 	UCSR0C |= (1 << UCSZ00);
-	UBRR0 =  ubrr;
+	UBRR0 =  800000/(16*baud_rate) - 1;
 	
 }
 
@@ -21,4 +21,8 @@ void usart_transmit(uint8_t data){
 		;
 	}
 	UDR0 = data;
+}
+
+void usart_breakdown(uint8_t data){
+
 }

@@ -8,8 +8,7 @@
 #include <avr/io.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <uartInitialise.h>
-#include <uartTransmit.h>
+#include <uart.h>
 
 #define RMSVoltage 14.5
 #define PeakCurrent 125
@@ -17,9 +16,9 @@
 
 int main(void)
 {
-    /* Replace with your application code */
-    while (1) 
-    {
+	usart_init(baud_rate);
+    while (1) {
+		
     }
 }
 
