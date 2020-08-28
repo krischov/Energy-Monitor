@@ -8,26 +8,12 @@
 #include <avr/io.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <uartInitialise.h>
+#include <uartTransmit.h>
 
 #define RMSVoltage 14.5
 #define PeakCurrent 125
 #define Power 1.60
-
-int uart_initialise(uint16_t baud_rate){
-	UCSR0A |= 0b00000000;
-	UCSR0B |= (1 << TXEN0);
-	UCSR0C |= (1 << UCSZ01);
-	UCSR0C |= (1 << UCSZ00);
-	UBRR0 =  800000/(16*baud_rate) - 1 ;
-	
-}
-
-void usart_transmit(uint8_t data){
-	while((UCSR0A & (1<<UDRE0)) == 0){
-		;
-	}
-	UDR0 = data;
-}
 
 int main(void)
 {
@@ -36,19 +22,6 @@ int main(void)
     {
     }
 }
-
-#include <avr/io.h>
-#include <util/delay.h>
-
-void usart_init(uint16_t ubrr){
-	UCSR0A |= 0b00000000;
-	UCSR0B |= (1 << TXEN0);
-	UCSR0C |= (1 << UCSZ01);
-	UCSR0C |= (1 << UCSZ00);
-	UBRR0 =  ubrr;
-	
-}
-
 
 void uart_transmit_array(uint16_t Array[]){
 	for (uint8_t i = 0; i < 62; i++){
