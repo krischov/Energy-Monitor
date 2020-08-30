@@ -9,9 +9,9 @@
 #ifndef INCFILE1_H_
 #define INCFILE1_H_
 
-#define F_OSC 800000
-#define baud_rate 9600
-
-
+#define BAUDRATE 9600
+#define RMSVoltage 145
+#define PeakCurrent 125
+#define power 160
 
 #endif /* INCFILE1_H_ */
