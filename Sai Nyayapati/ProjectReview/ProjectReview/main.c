@@ -15,31 +15,28 @@
  */ 
 
 #include <avr/io.h>
+#include "common.h"
 
 #define F_OSC = 800000;
 #define BAUD_RATE = 9600;
 
-void usart_init(uint16_t BAUD_RATE);
-void usart_transmit(uint8_t data);
+
 
 int main(void)
 {
-    /* Replace with your application code */
+	int count = 0;
+    char stringArray[3][17];
+	
+	strcpy(stringArray[0], "RMS Voltage is:");
+	strcpy(stringArray[1], "Peak Current is:");
+	strcpy(stringArray[2], "Power is:");
+	
+	
+	
     while (1) 
     {
+		usart_transmit_array(char stringArray);
+		usart_transmit_byte(char  );
     }
 }
 
-void usart_init(uint16_t BAUD_RATE) {
-	UBRR0 =  int (F_OSC/BAUD_RATE * 16) - 1;
-	UCSR0A = 0b00100000;
-	UCSR0B = 0b00001000;
-	UCSR0C = 0b00000110;
-}
-
-void usart_transmit(uint8_t data) {
-	while ((UCSR0A & 0b00100000) == 0) {
-		;
-	}
-	UDR0 = data;
-}

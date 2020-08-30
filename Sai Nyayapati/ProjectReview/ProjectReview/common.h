@@ -9,8 +9,11 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
-#define F_OSC = 800000;
-#define BAUD_RATE = 9600;
+#define F_OSC = 800000UL
+#define BAUD_RATE = 9600
+#define RMSVoltage = 14.5
+#define PeakCurrent = 125
+#define Power = 1.60
 
 
 
