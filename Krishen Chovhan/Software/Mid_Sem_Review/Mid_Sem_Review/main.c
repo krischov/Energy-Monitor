@@ -5,46 +5,24 @@
  * Author : krish
  */ 
 
+#define F_CPU 800000
 #include <avr/io.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <uartInitialise.h>
-#include <uartTransmit.h>
+#include <string.h>
+#include <util/delay.h> 
+#include "uart.h"
+#include "common.h"
 
-#define RMSVoltage 14.5
-#define PeakCurrent 125
-#define Power 1.60
 
 int main(void)
 {
-    /* Replace with your application code */
-    while (1) 
-    {
-    }
-}
+	usart_init(BAUDRATE);
+    while (1) {
+		usart_transmit_voltage(RMSVoltage);
+		usart_transmit_current(PeakCurrent);
+		usart_transmit_power(power);
+		_delay_ms(1000);
 
-void uart_transmit_array(uint16_t Array[]){
-	for (uint8_t i = 0; i < 62; i++){
-		uint8_t ones = (int)((Array[i]/1)%10);
-		uint8_t tens = (int)((Array[i]/10)%10);
-		uint8_t hundreds = (int)((Array[i]/100)%10);
-		usart_transmit(hundreds + 48);
-		usart_transmit(tens + 48);
-		usart_transmit(ones + 48);
-		usart_transmit(44);
-		usart_transmit(32);
 	}
-}
-
-int main(void){
-	
-
-	while(1)
-	{
-		uart_transmit_array(primeNumbers);
-		_delay_ms(500);
-	}
-	
-	
-	
 }
