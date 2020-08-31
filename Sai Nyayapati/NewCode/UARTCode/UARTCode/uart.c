@@ -31,26 +31,20 @@ void usart_transmit_array(char*msg){
 		usart_transmit_byte(msg[i]);
 	}
 }
-
-
 void usart_voltage(int voltage) {
-	char value[4];
-	sprintf(value, "%.1f", RMSVoltage);
 	usart_transmit_array("RMS Voltage is: ");
-	usart_transmit_array(value[0]);
-	usart_transmit_array(value[1]);
-	usart_transmit_array(".");
-	usart_transmit_array(value[2]);
-	usart_transmit_array(", ");
-	
+	usart_transmit_byte(voltage/100 + 48);
+	usart_transmit_byte((voltage/10)%10 + 48);
+	usart_transmit_byte('.');
+	usart_transmit_byte((voltage%10) + 48);
+	usart_transmit_array("\n\r");
 }
 void usart_current(int current) {
 	char value;
 	sprintf(&value, "%d", PeakCurrent);
 	usart_transmit_array("Peak current is: ");
 	usart_transmit_array(&value);
-	usart_transmit_array(", ");
-	
+	usart_transmit_array("\n\r");	
 }
 void usart_power(uint16_t power) {
 	usart_transmit_array("Power is: ");
@@ -59,5 +53,5 @@ void usart_power(uint16_t power) {
 	usart_transmit_byte((power/10)%10 + 48);
 	usart_transmit_byte((power%10) + 48);
 	usart_transmit_array("\n\r");
-	
+	usart_transmit_array("\n\r");	
 }

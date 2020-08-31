@@ -17,15 +17,9 @@
 int main(void)
 {
 	usart_init(BAUDRATE);
-	int voltage = RMSVoltage * 10;
+	uint16_t voltage = RMSVoltage * 10;
 	uint16_t power = Power * 100;
 	
-	
-	//char measurements[3][5];
-	//sprintf(measurements[0], "%.1f", RMSVoltage);
-	//sprintf(measurements[1], "%d", PeakCurrent);
-	//sprintf(measurements[2], "%.2f", Power);
-
 	while (1)
     {
 		usart_voltage(voltage);

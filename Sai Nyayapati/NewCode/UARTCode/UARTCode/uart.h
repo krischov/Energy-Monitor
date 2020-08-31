@@ -17,7 +17,7 @@ void usart_transmit_array(char*msg);
 void usart_voltage(int voltage);
 void usart_current(int current);
 void usart_power(uint16_t power);
-void usart_transmit_digit(int digit); 
+
 
 
 

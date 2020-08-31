@@ -10,9 +10,9 @@
 #define COMMON_H_
 
 #define BAUDRATE 9600
-#define RMSVoltage 14.5
-#define PeakCurrent 125
-#define Power 1.60
+#define RMSVoltage 43.1
+#define PeakCurrent 214
+#define Power 2.45
 
 
 
