@@ -40,11 +40,10 @@ void usart_voltage(uint16_t voltage) {
 	usart_transmit_array("\n\r");
 }
 void usart_current(uint16_t current) {
-	char value;
-	sprintf(&value, "%d", PeakCurrent);
 	usart_transmit_array("Peak current is: ");
-	usart_transmit_array(&value);
-	usart_transmit_array("\n\r");	
+	usart_transmit_byte(current/100 + 48);
+	usart_transmit_byte((current/10)%10 + 48);
+	usart_transmit_byte(current%10);
 }
 void usart_power(uint16_t power) {
 	usart_transmit_array("Power is: ");

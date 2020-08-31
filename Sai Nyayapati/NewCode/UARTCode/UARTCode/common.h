@@ -11,7 +11,7 @@
 
 #define BAUDRATE 9600
 #define RMSVoltage 43.1
-#define PeakCurrent 214
+#define PeakCurrent 119
 #define Power 2.45
 
 
