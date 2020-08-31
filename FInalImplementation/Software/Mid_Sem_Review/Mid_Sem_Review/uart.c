@@ -16,12 +16,12 @@ int tens;
 int hundreds;
  
 
-void usart_init(uint32_t baud_rate){ // This function sets the intitial values of the registers in the microcontroller. 
+void usart_init(uint32_t baud_rate){ // This function sets the initial values of the registers in the microcontroller. 
 	UCSR0A |= 0b00000000; //setting bit 5 in register UCSR0A to zero 
 	UCSR0B |= (1 << TXEN0); //setting bit 3 in register UCSR0B to 1
 	UCSR0C |= (1 << UCSZ01); //setting bit 2 in register UCSR0C to 1
-	UCSR0C |= (1 << UCSZ00); //setting bit 1 in resgister UCSR0C to 1
-	UBRR0 =  800000 / (16 * baud_rate) - 1;
+	UCSR0C |= (1 << UCSZ00); //setting bit 1 in register UCSR0C to 1
+	UBRR0 =  800000 / (16 * baud_rate) - 1; //UBRR register calculation for baud rate.
 	
 }
 
