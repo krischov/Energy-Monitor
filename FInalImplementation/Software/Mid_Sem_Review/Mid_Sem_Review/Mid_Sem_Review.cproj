@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>UARTCode</AssemblyName>
-    <Name>UARTCode</Name>
-    <RootNamespace>UARTCode</RootNamespace>
+    <AssemblyName>Mid_Sem_Review</AssemblyName>
+    <Name>Mid_Sem_Review</Name>
+    <RootNamespace>Mid_Sem_Review</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -28,18 +28,6 @@
     <ResetRule>0</ResetRule>
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <EraseKey />
-    <AsfFrameworkConfig>
-      <framework-data xmlns="">
-        <options />
-        <configurations />
-        <files />
-        <documentation help="" />
-        <offline-documentation help="" />
-        <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.47.0" />
-        </dependencies>
-      </framework-data>
-    </AsfFrameworkConfig>
     <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
     <avrtoolserialnumber />
     <avrdeviceexpectedsignature>0x1E950F</avrdeviceexpectedsignature>

@@ -17,19 +17,14 @@
 int main(void)
 {
 	usart_init(BAUDRATE);
-	
-	char measurements[3][5];
-	sprintf(measurements[0], "%.1f", RMSVoltage);
-	sprintf(measurements[1], "%d", PeakCurrent);
-	sprintf(measurements[2], "%.2f", Power);
+	uint16_t voltage = RMSVoltage * 10;
+	uint16_t power = Power * 100;
 	
 	while (1)
     {
-		usart_voltage(measurements[0]);
-		_delay_ms(1000);
-		usart_current(measurements[1]);
-		_delay_ms(1000);
-		usart_power(measurements[2]);
+		usart_voltage(voltage);
+		usart_current(PeakCurrent);
+		usart_power(power);
 		_delay_ms(1000);
     }
 }
