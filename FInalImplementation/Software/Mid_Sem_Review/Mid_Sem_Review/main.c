@@ -17,7 +17,7 @@
 
 int main(void)
 {
-	usart_init(BAUDRATE); //initialises uart with baudrate of BAUDRATE value
+	usart_init(BAUDRATE); //initialises uart with baud rate of BAUDRATE value
     while (1) {
 		usart_transmit_voltage(RMSVoltage); //calls function to transmit RMSVoltage value
 		usart_transmit_current(PeakCurrent); //calls function to transmit PeakCurrent value
