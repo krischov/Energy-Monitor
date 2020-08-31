@@ -23,9 +23,7 @@ int main(void)
 	while (1)
     {
 		usart_voltage(voltage);
-		_delay_ms(1000);
 		usart_current(PeakCurrent);
-		_delay_ms(1000);
 		usart_power(power);
 		_delay_ms(1000);
     }

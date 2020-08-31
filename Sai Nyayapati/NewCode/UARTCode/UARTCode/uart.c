@@ -31,7 +31,7 @@ void usart_transmit_array(char*msg){
 		usart_transmit_byte(msg[i]);
 	}
 }
-void usart_voltage(int voltage) {
+void usart_voltage(uint16_t voltage) {
 	usart_transmit_array("RMS Voltage is: ");
 	usart_transmit_byte(voltage/100 + 48);
 	usart_transmit_byte((voltage/10)%10 + 48);
@@ -39,7 +39,7 @@ void usart_voltage(int voltage) {
 	usart_transmit_byte((voltage%10) + 48);
 	usart_transmit_array("\n\r");
 }
-void usart_current(int current) {
+void usart_current(uint16_t current) {
 	char value;
 	sprintf(&value, "%d", PeakCurrent);
 	usart_transmit_array("Peak current is: ");
