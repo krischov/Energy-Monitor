@@ -21,7 +21,7 @@ int main(void)
     while (1) {
 		usart_transmit_voltage(RMSVoltage);
 		usart_transmit_current(PeakCurrent);
-		usart_transmit_power(power);
+		usart_transmit_power(Power);
 		_delay_ms(1000);
 
 	}
