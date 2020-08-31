@@ -10,8 +10,8 @@
 #define INCFILE1_H_
 
 #define BAUDRATE 9600
-#define RMSVoltage 145
-#define PeakCurrent 125
-#define power 160
+#define RMSVoltage 999
+#define PeakCurrent 50
+#define Power 999
 
 #endif /* INCFILE1_H_ */
