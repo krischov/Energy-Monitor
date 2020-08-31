@@ -1,7 +1,7 @@
 /*
  * uart.h
  *
- * Created: 28/08/2020 18:00:07
+ * Created: 31/08/2020 13:45:23
  *  Author: Sai
  */ 
 
@@ -13,6 +13,12 @@
 
 void usart_init(uint32_t baudRate);
 void usart_transmit_byte(char byte);
-void usart_transmit_array(char data[3][16], int count);
+void usart_transmit_array(char*msg);
+void usart_voltage(uint16_t voltage);
+void usart_current(uint16_t current);
+void usart_power(uint16_t power);
+
+
+
 
 #endif /* UART_H_ */

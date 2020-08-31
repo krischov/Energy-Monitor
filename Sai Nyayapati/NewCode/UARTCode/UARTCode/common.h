@@ -1,7 +1,7 @@
 /*
  * common.h
  *
- * Created: 28/08/2020 18:05:13
+ * Created: 31/08/2020 13:45:41
  *  Author: Sai
  */ 
 
@@ -10,9 +10,9 @@
 #define COMMON_H_
 
 #define BAUDRATE 9600
-#define RMSVoltage 14.5
-#define PeakCurrent 125
-#define Power 1.60
+#define RMSVoltage 43.1
+#define PeakCurrent 119
+#define Power 2.45
 
 
 

@@ -15,31 +15,48 @@
  */ 
 
 #include <avr/io.h>
+#include "common.h"
+#include <string.h>
 
-#define F_OSC = 800000;
-#define BAUD_RATE = 9600;
 
-void usart_init(uint16_t BAUD_RATE);
-void usart_transmit(uint8_t data);
+//#define F_OSC 800000UL
+//#define BAUD_RATE 9600
 
 int main(void)
-{
-    /* Replace with your application code */
+	void usart_init(BAUDRATE);
+	
+	uint8_t count = 0;
+	uint8_t dataCount = 0;
+	
+    char stringArray[3][16];
+	char measurements[3][5];
+	
+	strcpy(stringArray[0], "RMS Voltage is: ");
+	strcpy(stringArray[1], "Peak Current is: ");
+	strcpy(stringArray[2], "Power is: ");
+	
+	sprintf(measurements[0], "%.1f", RMSVoltage);
+	sprintf(measurements[1], "%d", PeakCurrent);
+	sprintf(measurements[2], "%.2f", Power);
+	
     while (1) 
     {
+		usart_transmit_array(stringArray, count);
+		if (dataCount == 2) {
+			dataCount = 0;
+		}
+		for (uint8_t i = dataCount; i < 3; i++) {
+			for (uint8_t j = 0; j < 4; j++) {
+				usart_transmit_byte(measurements[i][j]);
+				if (j == 3) {
+					dataCount++;
+					break;
+				}
+			}
+			if (dataCount > i) {
+				break;
+			}
+		}
     }
 }
 
-void usart_init(uint16_t BAUD_RATE) {
-	UBRR0 =  int (F_OSC/BAUD_RATE * 16) - 1;
-	UCSR0A = 0b00100000;
-	UCSR0B = 0b00001000;
-	UCSR0C = 0b00000110;
-}
-
-void usart_transmit(uint8_t data) {
-	while ((UCSR0A & 0b00100000) == 0) {
-		;
-	}
-	UDR0 = data;
-}
