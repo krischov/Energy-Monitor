@@ -14,7 +14,6 @@
 int ones;
 int tens;
 int hundreds;
-int a;
  
 
 void usart_init(uint32_t baud_rate){
@@ -34,9 +33,8 @@ void usart_transmit(char byte){
 }
 
 void usart_transmit_array(char* msg){
-	for (uint8_t i = 0; i < strlen(msg); i++) { 
-		a = msg[i];   
-		usart_transmit(a);
+	for (uint8_t i = 0; i < strlen(msg); i++) {    
+		usart_transmit(msg[i]);
 	}
 }
 
