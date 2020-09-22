@@ -1,0 +1,381 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD20\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">22/09/2020</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">8:06:15 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:03</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc" class="file"><acronym title="C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc">C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">15</td></tr>
+</table>
+</td>
+</table><a name="IDGGETM25BKKMUF5S0OAA4MM3HYHW5ZCR5QBQ4DDFP51YK0INZLRUP"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID0JN5IARJVQDUGDHVHY2UASD5ZOPGIX1OEAWVQXNCKDWYCHRH4IZ">Clearance Constraint (Gap=0.5mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDE5EAG1KA0DOZJTQAQDMG0PFSXCWLYPEKAWTCFSNQ4T4ULHJ03OJJ">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDGHAULA1WB0BHMSTIAW2NXC2VNFMUTSSNUHCYUMEJWAFS2WK3MROF">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">9</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDZHPIME5VIGG1PPOHWJDMU03BZCNSOENONMWHIMDCP5YUYBP5ZOMP">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5AI4UBM5MI3LGFSDERA1OM0C3JZRPRZOXYXB2PEAK1EKBT1RVVBH">Width Constraint (Min=0.5mm) (Max=10mm) (Preferred=1mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDL521IHQ4QK3ZB5PELV20FGKRJERRN1HFGLDJ24EFOH3SFAX1OK2D">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDE4UU1G1RVTFFCRFM05CTYFLATBGRNI50YSDFP5N0BRPSVY1ORX4H">Hole Size Constraint (Min=0.5mm) (Max=10mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID0OXKD3M1ZXKNEEFGNATROIKN4GZLWHWG5B5UM0PJVCFPF3Y3VAWK">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDBBFPXWQEKUKVFE4PMW2CB0THYOHRDRYLNJ040ILOLLMU3JUMD4MF">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDG4SRPO3YCSK2LTKQOUM5SS0N1IGRCI14KADYQ0N5QEXVTOWVCRKN">Silk To Solder Mask (Clearance=0.1mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMM4IJDL5U4F2NJZYM2LBCVZOXKYXZXACTYL0ZHIGUJLZODQFW4MC">Silk to Silk (Clearance=0.1mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDKNAOFNPM51ZXP1WFDT0G3ML1IDGPXTNA31OUD0C0J3ABRICBJWRP">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDLTXOFMWHVM0XPHKSP04CC3UTPIFLFZZENKJOOEI4O30KIQ2A5UHH">Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic'))</a></td>
+<td class="column2">6</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVPHU3GXKJ1V3DAQNKKTFGVA3BEN3LDFXHQDZK5BNO24OXAQHTXYP">Height Constraint (Min=0mm) (Max=100mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">15</td>
+</tr>
+</table><br><a name="IDGHAULA1WB0BHMSTIAW2NXC2VNFMUTSSNUHCYUMEJWAFS2WK3MROF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3441mil|Location2.X=4301.283mil|Location1.Y=1131mil|Location2.Y=1637.386mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3441mil|Location2.X=4301.283mil|Location1.Y=1131mil|Location2.Y=1637.386mil|Absolute=True">Un-Routed Net Constraint: Net Vac Between Pad P1-1(93.218mm,34.544mm) on Multi-Layer And Pad J1-1(106.426mm,40.363mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4078.716mil|Location2.X=4301.283mil|Location1.Y=1540.803mil|Location2.Y=1909mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4078.716mil|Location2.X=4301.283mil|Location1.Y=1540.803mil|Location2.Y=1909mil|Absolute=True">Un-Routed Net Constraint: Net Vac Between Pad J1-1(106.426mm,40.363mm) on Multi-Layer And Pad R1-2(106.619mm,47.625mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4078.717mil|Location2.X=4435.141mil|Location1.Y=1296.709mil|Location2.Y=1578.33mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4078.717mil|Location2.X=4435.141mil|Location1.Y=1296.709mil|Location2.Y=1578.33mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-3(106.426mm,34.163mm) on Multi-Layer And Pad J1-2(111.426mm,37.263mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4338.559mil|Location2.X=4609mil|Location1.Y=1355.763mil|Location2.Y=1578.33mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4338.559mil|Location2.X=4609mil|Location1.Y=1355.763mil|Location2.Y=1578.33mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-2(111.426mm,37.263mm) on Multi-Layer And Pad R3-1(116.205mm,39.055mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3218.402mil|Location2.X=4301.283mil|Location1.Y=1296.709mil|Location2.Y=1909mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3218.402mil|Location2.X=4301.283mil|Location1.Y=1296.709mil|Location2.Y=1909mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R2-1(82.611mm,47.625mm) on Multi-Layer And Pad J1-3(106.426mm,34.163mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2541mil|Location2.X=4609mil|Location1.Y=1078.402mil|Location2.Y=1589mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2541mil|Location2.X=4609mil|Location1.Y=1078.402mil|Location2.Y=1589mil|Absolute=True">Un-Routed Net Constraint: Net Vis Between Pad P1-2(70.358mm,34.544mm) on Multi-Layer And Pad R3-2(116.205mm,28.255mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3643.598mil|Location2.X=3806.402mil|Location1.Y=1841mil|Location2.Y=1909mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3643.598mil|Location2.X=3806.402mil|Location1.Y=1841mil|Location2.Y=1909mil|Absolute=True">Un-Routed Net Constraint: Net Vvs Between Pad R2-2(93.411mm,47.625mm) on Multi-Layer And Pad R1-1(95.819mm,47.625mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4541mil|Location2.X=4764mil|Location1.Y=1503.598mil|Location2.Y=1571.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4541mil|Location2.X=4764mil|Location1.Y=1503.598mil|Location2.Y=1571.598mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R3-1(116.205mm,39.055mm) on Multi-Layer And Pad R4-1(120.142mm,39.055mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4541mil|Location2.X=4764mil|Location1.Y=1078.402mil|Location2.Y=1146.402mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4541mil|Location2.X=4764mil|Location1.Y=1078.402mil|Location2.Y=1146.402mil|Absolute=True">Un-Routed Net Constraint: Net Vis Between Pad R3-2(116.205mm,28.255mm) on Multi-Layer And Pad R4-2(120.142mm,28.255mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDLTXOFMWHVM0XPHKSP04CC3UTPIFLFZZENKJOOEI4O30KIQ2A5UHH"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic'))</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=4435.141mil|Location1.Y=0mil|Location2.Y=1656.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=4435.141mil|Location1.Y=0mil|Location2.Y=1656.024mil|Absolute=True">Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component J1-DC barrel jack (106.426mm,34.363mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=3924.724mil|Location1.Y=0mil|Location2.Y=1618.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=3924.724mil|Location1.Y=0mil|Location2.Y=1618.937mil|Absolute=True">Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component P1-Dual Banana Plugs (81.788mm,34.544mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=4231.598mil|Location1.Y=0mil|Location2.Y=1926.085mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=4231.598mil|Location1.Y=0mil|Location2.Y=1926.085mil|Absolute=True">Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component R1-820k (101.219mm,47.625mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=3711.598mil|Location1.Y=0mil|Location2.Y=1926.085mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=3711.598mil|Location1.Y=0mil|Location2.Y=1926.085mil|Absolute=True">Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component R2-39k (88.011mm,47.625mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=4626.085mil|Location1.Y=0mil|Location2.Y=1571.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=4626.085mil|Location1.Y=0mil|Location2.Y=1571.598mil|Absolute=True">Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component R3-1R0 (116.205mm,33.655mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=4781.085mil|Location1.Y=0mil|Location2.Y=1571.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=4781.085mil|Location1.Y=0mil|Location2.Y=1571.598mil|Absolute=True">Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component R4-1R0 (120.142mm,33.655mm) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

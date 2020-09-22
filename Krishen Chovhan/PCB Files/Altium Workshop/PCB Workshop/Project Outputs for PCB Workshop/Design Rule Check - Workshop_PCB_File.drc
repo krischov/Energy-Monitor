@@ -1,0 +1,66 @@
+Protel Design System Design Rule Check
+PCB File : C:\Users\krish\Documents\GitHub\ee209-2020-project-team37\Krishen Chovhan\PCB Files\Altium Workshop\PCB Workshop\Workshop_PCB_File.PcbDoc
+Date     : 22/09/2020
+Time     : 8:06:15 PM
+
+Processing Rule : Clearance Constraint (Gap=0.5mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+   Violation between Un-Routed Net Constraint: Net Vac Between Pad P1-1(93.218mm,34.544mm) on Multi-Layer And Pad J1-1(106.426mm,40.363mm) on Multi-Layer 
+   Violation between Un-Routed Net Constraint: Net Vac Between Pad J1-1(106.426mm,40.363mm) on Multi-Layer And Pad R1-2(106.619mm,47.625mm) on Multi-Layer 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J1-3(106.426mm,34.163mm) on Multi-Layer And Pad J1-2(111.426mm,37.263mm) on Multi-Layer 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J1-2(111.426mm,37.263mm) on Multi-Layer And Pad R3-1(116.205mm,39.055mm) on Multi-Layer 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad R2-1(82.611mm,47.625mm) on Multi-Layer And Pad J1-3(106.426mm,34.163mm) on Multi-Layer 
+   Violation between Un-Routed Net Constraint: Net Vis Between Pad P1-2(70.358mm,34.544mm) on Multi-Layer And Pad R3-2(116.205mm,28.255mm) on Multi-Layer 
+   Violation between Un-Routed Net Constraint: Net Vvs Between Pad R2-2(93.411mm,47.625mm) on Multi-Layer And Pad R1-1(95.819mm,47.625mm) on Multi-Layer 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad R3-1(116.205mm,39.055mm) on Multi-Layer And Pad R4-1(120.142mm,39.055mm) on Multi-Layer 
+   Violation between Un-Routed Net Constraint: Net Vis Between Pad R3-2(116.205mm,28.255mm) on Multi-Layer And Pad R4-2(120.142mm,28.255mm) on Multi-Layer 
+Rule Violations :9
+
+Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.5mm) (Max=10mm) (Preferred=1mm) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0.5mm) (Max=10mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=0.1mm) (IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=0.1mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mm) (All)
+Rule Violations :0
+
+Processing Rule : Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic'))
+   Violation between Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component J1-DC barrel jack (106.426mm,34.363mm) on Top Layer 
+   Violation between Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component P1-Dual Banana Plugs (81.788mm,34.544mm) on Top Layer 
+   Violation between Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component R1-820k (101.219mm,47.625mm) on Top Layer 
+   Violation between Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component R2-39k (88.011mm,47.625mm) on Top Layer 
+   Violation between Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component R3-1R0 (116.205mm,33.655mm) on Top Layer 
+   Violation between Room Definition: Between Room Workshop_Schematic (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('Workshop_Schematic')) And Small Component R4-1R0 (120.142mm,33.655mm) on Top Layer 
+Rule Violations :6
+
+Processing Rule : Height Constraint (Min=0mm) (Max=100mm) (Prefered=12.7mm) (All)
+Rule Violations :0
+
+
+Violations Detected : 15
+Waived Violations : 0
+Time Elapsed        : 00:00:03
