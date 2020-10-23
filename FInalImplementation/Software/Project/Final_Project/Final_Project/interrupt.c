@@ -22,7 +22,6 @@ extern volatile uint8_t channel;
 extern volatile uint8_t adc_count;
 
 ISR(INT0_vect) {
-	
 	if(flag == 0){
 		usart_transmit_current(789);
 		ADCSRA |= (1 << ADEN);
@@ -35,20 +34,22 @@ ISR(INT0_vect) {
 		timer_stop_clear();
 		interrupt0_disable();
 		interrupt1_enable();
-		ADMUX = 0b01000001;
 		flag = 2;
 		adc_count = 0;
+		usart_transmit_current(adc_count);
 	}
 }
 
 ISR(INT1_vect) {
 	if(flag == 2){
-		usart_transmit_current(666);
+		usart_transmit_current(111);
+		adc_init();
+		ADMUX = 0b01000001;
 		ADCSRA |= (1 << ADEN);
 		timer_init();
 		flag = 3;
 	}
-	else if(flag == 3 && adc_count == 20){
+	else if(flag == 3 && adc_count == 19){
 		usart_transmit_current(420);
 		ADCSRA &= ~(1 << ADEN);
 		timer_stop_clear();

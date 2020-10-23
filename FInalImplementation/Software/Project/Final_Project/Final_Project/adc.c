@@ -14,7 +14,6 @@ extern volatile uint8_t channel;
 extern volatile uint8_t adc_count;
 
 ISR(ADC_vect) {
-	usart_transmit_array("Test\n\r");
 	if (ADMUX == 0b01000000 && adc_count < 20) {
 		usart_transmit_current(456);
 		v_vs[adc_count] = adc_read();
@@ -27,15 +26,6 @@ ISR(ADC_vect) {
 	TIFR0 |= (1 << TOV0);
 }
 
-
-/*
-void adc_init() {
-	ADMUX = 0b01000000;
-	ADCSRA = 0b10111110; // WHEN CONVERSION COMPLETE, CHANGES CHANNEL
-	ADCSRB = 0b00000100;
-}
-*/
-
 void adc_init() {
 	ADMUX = 0b01000000;
 	ADCSRA = 0b01111011;
@@ -47,7 +37,7 @@ float adc_read(){
 	//ADMUX &= 0xF0; //Clear channel selection
 	//ADMUX |= channel; //Set the channel to convert
 	ADCSRA |= (1 << ADSC); //Starting an ADC conversion
-	return ((float) (ADC * 500)/1024); //Alternatively you can write return ADC;
+	return ((float) (ADC * 500)/1024); 
 }
  /*
 uint32_t adc_convert(uint16_t value){

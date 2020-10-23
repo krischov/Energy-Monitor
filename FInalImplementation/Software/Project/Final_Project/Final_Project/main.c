@@ -49,7 +49,11 @@ int main(void)
 		//_delay_ms(1000); //sets a delay for 1 second
 		for (int i = 0; i < 20; i++) {
 			int value = v_vs[i];
+			int value2 = v_is[i];
 			usart_transmit_voltage(value);
+			_delay_ms(500);
+			usart_transmit_current(value2);  
 		}
+		break;
 	}
 }
