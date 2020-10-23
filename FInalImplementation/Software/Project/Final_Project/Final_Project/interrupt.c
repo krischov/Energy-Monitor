@@ -13,41 +13,49 @@
 #include <avr/interrupt.h>
 #include "uart.h"
 #include "common.h"
+#include "interrupt.h"
 #include "adc.h"
-
-
+#include "timer.h"
+extern volatile uint8_t flag;
+extern volatile uint8_t flag2;
+extern volatile uint8_t channel;
+extern volatile uint8_t adc_count;
 
 ISR(INT0_vect) {
-	if(flag == 0 && flag2 == 0){
-		ADCSRA |= (1 << ADATE);
+	
+	if(flag == 0){
+		usart_transmit_current(789);
+		ADCSRA |= (1 << ADEN);
 		timer_init();
-		flag++;
+		flag = 1;
 	}
-	else if(flag == 1 && flag2 == 1){
-		ADCSRA &= ~(1 << ADATE);
+	else if(flag == 1 && adc_count == 20){
+		usart_transmit_current(444);
+		ADCSRA &= ~(1 << ADEN);
 		timer_stop_clear();
-		flag++;
 		interrupt0_disable();
 		interrupt1_enable();
-		channel = 0b01000001;
+		ADMUX = 0b01000001;
+		flag = 2;
+		adc_count = 0;
 	}
-	flag2++;
 }
 
 ISR(INT1_vect) {
-	if(flag == 2 && flag2 == 2){
-		ADCSRA |= (1 << ADATE);
+	if(flag == 2){
+		usart_transmit_current(666);
+		ADCSRA |= (1 << ADEN);
 		timer_init();
-		flag++;
+		flag = 3;
 	}
-	else if(flag == 3 && flag2 == 3){
-		ADCSRA &= ~(1 << ADATE);
+	else if(flag == 3 && adc_count == 20){
+		usart_transmit_current(420);
+		ADCSRA &= ~(1 << ADEN);
 		timer_stop_clear();
-		flag++;
 		interrupt1_disable();
-		channel = 0b01000000;
+		ADMUX = 0b01000000;
+		adc_count = 0;
 	}
-	flag2++;
 }
 
 void interrupt0_enable(){

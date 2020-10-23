@@ -15,11 +15,10 @@
 void timer_init() {
 	TCCR0A = 0b00000011;
 	TCCR0B = 0b00001010;
-	OCR0A = 0b01100011;
+	OCR0A = 99;
 }
 
 void timer_stop_clear(){
-	TCCR0A = 0b00000000;
-	TCCR0B = 0b00000000;
-	OCR0A = 0b00000000;
+	TCCR0B = 0b00001000;
+	TCNT0 = 0;
 }
