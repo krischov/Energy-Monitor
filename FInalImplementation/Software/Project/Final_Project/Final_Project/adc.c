@@ -8,12 +8,8 @@
 #include <avr/io.h>
 extern volatile float v_vs[20];
 extern volatile float v_is[20];
-
-ISR(INT0_vect) {
-	
-	ADCSRA =
-	timer_init(); 
-}
+extern volatile uint8_t flag;
+extern volatile uint8_t flag2;
 
 
 ISR(ADC_vect) {
@@ -36,8 +32,8 @@ void adc_init() {
 */
 
 void adc_init() {
-	ADMUX = 0b01000001;
-	ADCSRA = 0b11101011;
+	ADMUX = 0b01000000;
+	ADCSRA = 0b11001011;
 	ADCSRB = 0b00000100;
 }
 

@@ -9,9 +9,6 @@
 #ifndef UART_H_
 #define UART_H_
 
-#ifndef UART_H_
-#define UART_H_
-
 void usart_init(uint32_t baud_rate);
 void usart_transmit(char data);
 void usart_transmit_array(char* msg);

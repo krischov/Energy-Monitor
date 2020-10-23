@@ -5,6 +5,11 @@
  *  Author: Sai
  */ 
 
+#include <avr/io.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
 
 #ifndef ADC_H_
 #define ADC_H_
