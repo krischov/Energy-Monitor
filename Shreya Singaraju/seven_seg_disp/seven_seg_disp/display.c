@@ -53,7 +53,7 @@
 
 
 static volatile uint16_t DispNo = 0;
-static volatile uint8_t DispPos = 0;
+static volatile uint8_t DispPos = 1;
 
 
 static volatile uint8_t ones = 0;
