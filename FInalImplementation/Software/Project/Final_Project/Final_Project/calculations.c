@@ -35,3 +35,22 @@ float calculate_rms_current(float *v_is, float sample_size){
 	i_rms = sqrt(v_rms__current_squared);
 	return i_rms;
 }
+
+float integrate_power(float *power, float sample_size){
+	float coefficient = (float)1 / (float)sample_size;
+	float totalPower = 0;
+	for(unsigned int i = 0; i < sample_size; i++){
+		totalPower += power[i];
+	}
+	return totalPower * coefficient;
+}
+
+float calculate_power (float *v_is, float *v_vs) {
+	float power[20];
+	
+	for (int i = 0; i < 20; i++) {
+		power[i] = v_vs[i] * v_is[i];
+	} 
+	return (integrate_power(power, 20))/0.02;
+}
+
