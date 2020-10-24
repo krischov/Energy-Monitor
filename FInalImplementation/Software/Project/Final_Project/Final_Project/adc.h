@@ -15,7 +15,8 @@
 #define ADC_H_
 
 void adc_init();
-float adc_read();
+float adc_read_voltage();
+float adc_read_current();
 uint32_t adc_convert(uint16_t value);
 void usart_transmit_current(uint16_t Current);
 

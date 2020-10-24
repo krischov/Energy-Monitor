@@ -36,7 +36,6 @@ ISR(INT0_vect) {
 		interrupt1_enable();
 		flag = 2;
 		adc_count = 0;
-		usart_transmit_current(adc_count);
 	}
 }
 
@@ -49,7 +48,7 @@ ISR(INT1_vect) {
 		timer_init();
 		flag = 3;
 	}
-	else if(flag == 3 && adc_count == 19){
+	else if(flag == 3 && adc_count == 20){
 		usart_transmit_current(420);
 		ADCSRA &= ~(1 << ADEN);
 		timer_stop_clear();

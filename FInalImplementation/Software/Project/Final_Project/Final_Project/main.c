@@ -28,6 +28,8 @@ volatile uint16_t Power;
 volatile uint8_t flag = 0;
 volatile uint8_t flag2 = 0;
 volatile uint8_t adc_count = 0;
+volatile float adcVoltage = 0;
+volatile float adcCurrent = 0;
 
 int main(void)
 {	
@@ -43,16 +45,13 @@ int main(void)
 	while (1) {
 		cli();
 		sei();
-		//usart_transmit_voltage(123); //calls function to transmit RMSVoltage value
-		//usart_transmit_current(123); //calls function to transmit PeakCurrent value
-		//usart_transmit_power(123); //calls function to transmit Power value
-		//_delay_ms(1000); //sets a delay for 1 second
+		
 		for (int i = 0; i < 20; i++) {
 			int value = v_vs[i];
-			int value2 = v_is[i];
+			//int value2 = v_is[i];
 			usart_transmit_voltage(value);
-			_delay_ms(500);
-			usart_transmit_current(value2);  
+		//	_delay_ms(500);
+			//usart_transmit_current(value2);  
 		}
 		break;
 	}
