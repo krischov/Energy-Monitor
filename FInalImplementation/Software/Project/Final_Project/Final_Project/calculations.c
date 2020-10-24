@@ -5,3 +5,19 @@
  *  Author: Sai
  */ 
 
+#include <math.h>
+float calculate_rms_voltage(float *array_vs, float sample_size){
+	float coefficient = (float)1 / ((float)sample_size/1000);
+	float v_vs_squared_total = 0;
+	float v_vs_squared_total_xTsample = 0;
+	float v_rms_squared = 0;
+	float v_rms = 0;
+	for(unsigned int i = 0; i < sample_size; i++){
+		v_vs_squared_total += array_vs[i] * array_vs[i];
+	}
+	v_vs_squared_total_xTsample = v_vs_squared_total * (float)1/1000;
+	v_rms_squared = v_vs_squared_total_xTsample * coefficient;
+	v_rms = sqrt(v_rms_squared);
+	return v_rms;
+}
+

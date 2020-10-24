@@ -17,20 +17,22 @@ extern volatile float adcCurrent;
 
 ISR(ADC_vect) {
 	if (ADMUX == 0b01000000 && adc_count < 20) {
-		usart_transmit_current(456);
-		v_vs[adc_count] = (uint8_t)adc_read_voltage();
+		//usart_transmit_current(456);
+		v_vs[adc_count] = adc_read_voltage();
+		adc_count++;
 	}
 	else if (ADMUX == 0b01000001 && adc_count < 20) {
-		usart_transmit_current(999);
+		//usart_transmit_current(999);
 		v_is[adc_count] = adc_read_current();
+		adc_count++;
 	}
-	adc_count++;
+	
 	TIFR0 |= (1 << TOV0);
 }
 
 void adc_init() {
 	ADMUX = 0b01000000;
-	ADCSRA = 0b01111011;
+	ADCSRA = 0b11101011;
 	ADCSRB = 0b00000100;
 }
 
@@ -38,8 +40,11 @@ void adc_init() {
 float adc_read_voltage(){
 	//ADMUX &= 0xF0; //Clear channel selection
 	//ADMUX |= channel; //Set the channel to convert
-	ADCSRA |= (1 << ADSC); //Starting an ADC conversion
-	adcVoltage = (((float)ADC * 5) / 1024 - 2.1) / (float) (0.0454016298);
+	//ADCSRA |= (1 << ADSC); //Starting an ADC conversion
+	adcVoltage =  ((float)( ADC * 5) / (float) 1024 - 2.1) / (float) (0.0454016298);
+	/*while ((ADCSRA & (1 << ADIF)) == 0) {
+		;
+	}*/
 	return adcVoltage; 
 }
 

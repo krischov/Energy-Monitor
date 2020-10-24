@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <stdbool.h>
 #include "uart.h"
 #include "common.h"
 #include "interrupt.h"
@@ -20,41 +21,48 @@ extern volatile uint8_t flag;
 extern volatile uint8_t flag2;
 extern volatile uint8_t channel;
 extern volatile uint8_t adc_count;
+extern volatile bool sampleFinished;
 
 ISR(INT0_vect) {
 	if(flag == 0){
-		usart_transmit_current(789);
-		ADCSRA |= (1 << ADEN);
+		//usart_transmit_current(789);
+		//ADCSRA |= (1 << ADEN);
 		timer_init();
 		flag = 1;
 	}
 	else if(flag == 1 && adc_count == 20){
-		usart_transmit_current(444);
-		ADCSRA &= ~(1 << ADEN);
+		//usart_transmit_current(444);
+		//ADCSRA &= ~(1 << ADEN);
 		timer_stop_clear();
 		interrupt0_disable();
 		interrupt1_enable();
 		flag = 2;
 		adc_count = 0;
+		sampleFinished = true;
+		
 	}
 }
 
 ISR(INT1_vect) {
 	if(flag == 2){
-		usart_transmit_current(111);
+		//usart_transmit_current(111);
 		adc_init();
 		ADMUX = 0b01000001;
-		ADCSRA |= (1 << ADEN);
+		//ADCSRA |= (1 << ADEN);
 		timer_init();
 		flag = 3;
 	}
 	else if(flag == 3 && adc_count == 20){
-		usart_transmit_current(420);
-		ADCSRA &= ~(1 << ADEN);
+	//	usart_transmit_current(420);
+		//ADCSRA &= ~(1 << ADEN);
 		timer_stop_clear();
 		interrupt1_disable();
+		flag = 0;
+		interrupt0_enable();
 		ADMUX = 0b01000000;
+		sampleFinished = true;
 		adc_count = 0;
+		
 	}
 }
 
