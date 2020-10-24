@@ -12,13 +12,17 @@
 #include <avr/interrupt.h>
 #include "timer.h"
 
+ISR (TIMER0_COMPA_vect) {
+	
+}
 void timer_init() {
-	TCCR0A = 0b00000011;
-	TCCR0B = 0b00001010;
+	TCCR0A = 0b00000010;
+	TCCR0B = 0b00000010;
 	OCR0A = 99;
+	TIMSK0 = 0b00000010;
 }
 
 void timer_stop_clear(){
-	TCCR0B = 0b00001000;
+	TCCR0B = 0b00000000;
 	TCNT0 = 0;
 }

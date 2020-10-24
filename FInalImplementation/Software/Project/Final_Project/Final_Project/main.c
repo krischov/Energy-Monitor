@@ -35,6 +35,7 @@ volatile bool sampleFinished = false;
 
 int main(void)
 {	
+	DDRB = 0xFF;
 	//float v_vs[20];
 	//float v_is[20];
 	adc_init();
@@ -47,20 +48,19 @@ int main(void)
 	 //initializes uart with baud rate of BAUDRATE value
 	while (1) {
 		
-		if (sampleFinished == true) {
-			cli();
+		//if (sampleFinished == true) {
+			
 			for (int i = 0; i < 20; i++) {
 				
 				//int value2 = v_is[i];
 				
-				usart_transmit_voltage((uint16_t)v_vs[i] * 100);
+				//usart_transmit_voltage(v_vs[i] * 10);
 				//	_delay_ms(500);
-				//usart_transmit_voltage(value2);
+				usart_transmit_current(v_is[i] * 10);
 			}
-			sei();
-			sampleFinished = false;
+			//sampleFinished = false;
 			
-		}
+		//}
 		
 		/*
 		float val = calculate_rms_voltage(array_vs, 10);

@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "uart.h"
 #include "common.h"
 
@@ -43,13 +44,22 @@ void usart_breakdown_ascii(uint16_t number){ //This function converts uint16_t n
 	hundreds = ((number/100)%10) + 48;
 }
 
-void usart_transmit_voltage(uint16_t Voltage){ //This function transmits the RMS Voltage value into UDR0
+void usart_transmit_voltage(int32_t Voltage){ //This function transmits the RMS Voltage value into UDR0
+	bool flag = false;
+	if (Voltage < 0) {
+		Voltage = Voltage * -1; 
+		flag = true;
+	}
 	usart_breakdown_ascii(Voltage); //Converts the RMS Voltage value into ascii
 	usart_transmit_array("RMS Voltage is: "); //Transmits the character sentence into UDR0
+	if (flag == true) {
+		usart_transmit('-');
+	}
 	usart_transmit(hundreds); //Obtains the 'tens' digit of the voltage value
 	usart_transmit(tens); //Obtains the 'ones' digit of the voltage value
 	usart_transmit('.'); //Transmits a decimal point
 	usart_transmit(ones);//Obtains the 'tenths' digit of the voltage value
+	usart_transmit_array(" V_RMS");
 	usart_transmit_array("\n\r"); //transmits a new line
 }
 

@@ -16,6 +16,7 @@ extern volatile float adcVoltage;
 extern volatile float adcCurrent;
 
 ISR(ADC_vect) {
+	PORTB ^= (1 << PINB5);
 	if (ADMUX == 0b01000000 && adc_count < 20) {
 		//usart_transmit_current(456);
 		v_vs[adc_count] = adc_read_voltage();
@@ -29,11 +30,15 @@ ISR(ADC_vect) {
 	
 	TIFR0 |= (1 << TOV0);
 }
+/*ISR (ADC_vect) {
+	v_vs[adc_count] = ADC;
+	adc_count++;
+}*/
 
 void adc_init() {
 	ADMUX = 0b01000000;
-	ADCSRA = 0b11101011;
-	ADCSRB = 0b00000100;
+	ADCSRA = 0b11101010;
+	ADCSRB = 0b00000011;
 }
 
 
