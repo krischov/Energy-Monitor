@@ -46,7 +46,7 @@ float adc_read_voltage(){
 	//ADMUX &= 0xF0; //Clear channel selection
 	//ADMUX |= channel; //Set the channel to convert
 	//ADCSRA |= (1 << ADSC); //Starting an ADC conversion
-	adcVoltage =  ((float)( ADC * 5) / (float) 1024 - 2.1) / (float) (0.0454016298);
+	adcVoltage =  ((float)(ADC * 5) / (float) 1024 - 2.1) / (float) (0.0454016298);
 	/*while ((ADCSRA & (1 << ADIF)) == 0) {
 		;
 	}*/
@@ -56,8 +56,8 @@ float adc_read_voltage(){
 float adc_read_current(){
 	//ADMUX &= 0xF0; //Clear channel selection
 	//ADMUX |= channel; //Set the channel to convert
-	ADCSRA |= (1 << ADSC); //Starting an ADC conversion
-	adcCurrent = (float) ((ADC * 5) / 1024 - 2.1) / (float) (1.145454545);
+	//ADCSRA |= (1 << ADSC); //Starting an ADC conversion
+	adcCurrent = (float) ((ADC * 5) / (float) 1024 - 2.1) / (float) (1.145454545);
 	return adcCurrent;
 }
  /*

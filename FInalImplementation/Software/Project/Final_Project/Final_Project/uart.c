@@ -63,12 +63,13 @@ void usart_transmit_voltage(int32_t Voltage){ //This function transmits the RMS 
 	usart_transmit_array("\n\r"); //transmits a new line
 }
 
-void usart_transmit_current(uint16_t Current){ //This function transmits the Peak Current value into UDR0
+void usart_transmit_current(int32_t Current){ //This function transmits the Peak Current value into UDR0
 	usart_breakdown_ascii(Current); //Converts the current value into ascii
 	usart_transmit_array("Peak Current is: "); //Transmits the character sentence into UDR0
 	usart_transmit(hundreds); //Obtains the 'hundreds' digit of the voltage value
 	usart_transmit(tens); //Obtains the 'tens' digit of the voltage value
 	usart_transmit(ones); //Obtains the 'ones' digit of the voltage value
+	usart_transmit_array(" mA");
 	usart_transmit_array("\n\r"); //transmits a new line
 }
 

@@ -9,7 +9,7 @@
 #ifndef CALCULATIONS_H_
 #define CALCULATIONS_H_
 
-float calculate_rms_voltage(float *array_vs, float sample_size);
+float calculate_rms_voltage(float *v_vs, float sample_size);
 
 
 

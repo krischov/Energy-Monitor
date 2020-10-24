@@ -14,7 +14,7 @@ void usart_transmit(char data);
 void usart_transmit_array(char* msg);
 void usart_breakdown_ascii(uint16_t number);
 void usart_transmit_voltage(int32_t Voltage);
-void usart_transmit_current(uint16_t Current);
+void usart_transmit_current(int32_t Current);
 void usart_transmit_power(uint16_t power);
 
 #endif /* UART_H_ */

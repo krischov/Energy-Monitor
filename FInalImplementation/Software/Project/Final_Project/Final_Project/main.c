@@ -56,7 +56,7 @@ int main(void)
 				
 				//usart_transmit_voltage(v_vs[i] * 10);
 				//	_delay_ms(500);
-				usart_transmit_current(v_is[i] * 10);
+				usart_transmit_current(v_is[i] * 1000);
 			}
 			//sampleFinished = false;
 			
