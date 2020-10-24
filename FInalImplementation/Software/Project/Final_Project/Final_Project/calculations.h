@@ -10,7 +10,7 @@
 #define CALCULATIONS_H_
 
 float calculate_rms_voltage(float *v_vs, float sample_size);
-
+float calculate_rms_current(float *v_is, float sample_size);
 
 
 #endif /* CALCULATIONS_H_ */

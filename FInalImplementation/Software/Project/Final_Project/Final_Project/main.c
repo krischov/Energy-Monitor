@@ -32,6 +32,7 @@ volatile uint8_t adc_count = 0;
 volatile float adcVoltage = 0;
 volatile float adcCurrent = 0;
 volatile bool sampleFinished = false;
+volatile bool enableADC = true;
 
 int main(void)
 {	
@@ -48,19 +49,20 @@ int main(void)
 	 //initializes uart with baud rate of BAUDRATE value
 	while (1) {
 		
-		//if (sampleFinished == true) {
+		if (enableADC == false) {
 			
-			for (int i = 0; i < 20; i++) {
+			
 				
 				//int value2 = v_is[i];
 				
 				//usart_transmit_voltage(v_vs[i] * 10);
 				//	_delay_ms(500);
-				usart_transmit_current(v_is[i] * 1000);
-			}
-			//sampleFinished = false;
-			
-		//}
+				usart_transmit_voltage(calculate_rms_voltage(v_vs, 20)*10);
+				//usart_transmit_current(v_is[i] * 1000);
+				usart_transmit_current(calculate_rms_current(v_is, 20)*1000);
+			sampleFinished = false;
+			enableADC = true;
+		}
 		
 		/*
 		float val = calculate_rms_voltage(array_vs, 10);
