@@ -56,7 +56,7 @@ float adc_read_current(){
 	//ADMUX &= 0xF0; //Clear channel selection
 	//ADMUX |= channel; //Set the channel to convert
 	//ADCSRA |= (1 << ADSC); //Starting an ADC conversion
-	adcCurrent = (float) ((ADC * 5) / (float) 1024 - 2.1); /// (float) (1.145454545);
+	adcCurrent = (float) ((ADC * 5) / (float) 1024 - 2.1) / (float) (1.145454545);
 	return adcCurrent;
 }
  /*

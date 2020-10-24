@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <math.h>
 #include "uart.h"
 #include "common.h"
 #include "adc.h"
