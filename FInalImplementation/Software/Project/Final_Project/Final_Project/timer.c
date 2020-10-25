@@ -26,3 +26,12 @@ void timer_stop_clear(){
 	TCCR0B = 0b00000000;
 	TCNT0 = 0;
 }
+
+void timer1_init() {
+	TCCR1A = 0b00000000;
+	TCCR1B = 0b00000010;
+}
+
+void timer1_stop() {
+	TCCR1B = 0b00000000;
+}
