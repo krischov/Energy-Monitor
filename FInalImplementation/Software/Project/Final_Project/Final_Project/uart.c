@@ -15,7 +15,7 @@
 int ones;
 int tens;
 int hundreds;
-
+int thousands;
 
 void usart_init(uint32_t baud_rate){ // This function sets the initial values of the registers in the microcontroller.
 	UCSR0A |= 0b00000000; //setting bit 5 in register UCSR0A to zero
@@ -42,6 +42,7 @@ void usart_breakdown_ascii(uint16_t number){ //This function converts uint16_t n
 	ones = ((number/1)%10) + 48; //Adds the number 48 to uint16_t values based on ascii table
 	tens = ((number/10)%10) + 48;
 	hundreds = ((number/100)%10) + 48;
+	thousands = ((number/1000)%10) + 48;
 }
 
 void usart_transmit_voltage(int32_t Voltage){ //This function transmits the RMS Voltage value into UDR0
@@ -74,6 +75,7 @@ void usart_transmit_current(int32_t Current){ //This function transmits the Peak
 	if (flag == true) {
 		usart_transmit('-'); 
 	}
+	usart_transmit(thousands);
 	usart_transmit(hundreds); //Obtains the 'hundreds' digit of the voltage value
 	usart_transmit(tens); //Obtains the 'tens' digit of the voltage value
 	usart_transmit(ones); //Obtains the 'ones' digit of the voltage value

@@ -23,6 +23,7 @@ extern volatile uint8_t channel;
 extern volatile uint8_t adc_count;
 extern volatile bool sampleFinished;
 extern volatile bool enableADC;
+extern volatile bool powerCalc;
 
 ISR(INT0_vect) {
 	PORTB ^= (1 << 5);
@@ -31,6 +32,7 @@ ISR(INT0_vect) {
 		//ADCSRA |= (1 << ADEN);
 		timer_init();
 		flag = 1;
+		powerCalc = false;
 		
 	}
 	else if(flag == 1 && adc_count == 20){
@@ -66,6 +68,7 @@ ISR(INT1_vect) {
 		ADMUX = 0b01000000;
 		sampleFinished = true;
 		adc_count = 0;
+		powerCalc = true;
 		
 	}
 }

@@ -34,6 +34,7 @@ volatile float adcVoltage = 0;
 volatile float adcCurrent = 0;
 volatile bool sampleFinished = false;
 volatile bool enableADC = true;
+volatile bool powerCalc = false;
 
 
 int main(void)
@@ -62,10 +63,15 @@ int main(void)
 				
 				//usart_transmit_voltage(v_vs[i] * 10);
 				//	_delay_ms(500);
-				usart_transmit_voltage(calculate_rms_voltage(v_vs, 20)*10);
+				usart_transmit_voltage(calculate_rms_voltage(v_vs)*10);
 				//usart_transmit_current(v_is[i] * 1000);
-				float RMSCurrent = calculate_rms_current(v_is, 20); 
-				usart_transmit_current(calculate_rms_current(v_is, 20)*1000);
+				float RMSCurrent = calculate_rms_current(v_is); 
+				usart_transmit_current(calculate_rms_current(v_is)*1000);
+				if (powerCalc == true) {
+					float Power = calculate_power(v_vs, v_is);
+					usart_transmit_power(Power);
+				}
+				
 				//usart_transmit_power(calculate_power(v_vs, v_is));
 			sampleFinished = false;
 			enableADC = true;

@@ -6,13 +6,13 @@
  */ 
 
 #include <math.h>
-float calculate_rms_voltage(float *v_vs, float sample_size){
-	float coefficient = (float)1 / ((float)sample_size/1000);
+float calculate_rms_voltage(float *v_vs){
+	float coefficient = (float)1 / ((float) 20/1000);
 	float v_vs_squared_total = 0;
 	float v_vs_squared_total_xTsample = 0;
 	float v_rms_squared = 0;
 	float v_rms = 0;
-	for(unsigned int i = 0; i < sample_size; i++){
+	for(unsigned int i = 0; i < 20; i++){
 		v_vs_squared_total += v_vs[i] * v_vs[i];
 	}
 	v_vs_squared_total_xTsample = v_vs_squared_total * (float)1/1000;
@@ -21,13 +21,13 @@ float calculate_rms_voltage(float *v_vs, float sample_size){
 	return v_rms;
 }
 
-float calculate_rms_current(float *v_is, float sample_size){
-	float coefficient = (float)1 / ((float)sample_size/1000);
+float calculate_rms_current(float *v_is){
+	float coefficient = (float)1 / ((float)20/1000);
 	float v_is_squared_total = 0;
 	float v_is_squared_total_xTsample = 0;
 	float v_rms__current_squared = 0;
 	float i_rms = 0;
-	for(unsigned int i = 0; i < sample_size; i++){
+	for(unsigned int i = 0; i < 20; i++){
 		v_is_squared_total += v_is[i] * v_is[i];
 	}
 	v_is_squared_total_xTsample = v_is_squared_total * (float)1/1000;
@@ -36,21 +36,28 @@ float calculate_rms_current(float *v_is, float sample_size){
 	return i_rms;
 }
 
-float integrate_power(float *power, float sample_size){
-	float coefficient = (float)1 / (float)sample_size;
+float calculate_power(float *v_vs, float *v_is) {
+	float hold_0 = v_is[0];
+	float currentArray[20];
+	
+	for (int i = 0; i < 20; i++) {
+		currentArray[i] = v_is[i];
+	}
+	
+	for (int i = 0; i < 19; i++) {
+		float holdValue  = currentArray[i+1];
+		currentArray[i] = holdValue;
+		if (i == 18) {
+			currentArray[19] = hold_0;
+		}
+	}
+	float coefficient = (float) 1 / (float) 20;
 	float totalPower = 0;
-	for(unsigned int i = 0; i < sample_size; i++){
-		totalPower += power[i];
+	for (int i = 0; i < 20; i++) {
+		totalPower += v_vs[i] * currentArray[i];
 	}
 	return totalPower * coefficient;
 }
 
-float calculate_power (float *v_is, float *v_vs) {
-	float power[20];
-	
-	for (int i = 0; i < 20; i++) {
-		power[i] = v_vs[i] * v_is[i];
-	} 
-	return (integrate_power(power, 20))/0.02;
-}
+//float calculate_energy
 
