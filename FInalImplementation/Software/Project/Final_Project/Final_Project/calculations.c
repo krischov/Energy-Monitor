@@ -44,24 +44,20 @@ float calculate_power(float *v_vs, float *v_is) {
 		currentArray[i] = v_is[i];
 	}
 	
-	/*for (int i = 0; i < 19; i++) {
+	for (int i = 0; i < 19; i++) {
 		float holdValue  = currentArray[i+1];
 		currentArray[i] = holdValue;
 		if (i == 18) {
 			currentArray[19] = hold_0;
 		}
-	}*/
+	}
 	float coefficient = (float) 1 / (float) 20;
 	float totalPower = 0;
-	for (int i = 0; i < 19; i++) {
-		totalPower += (float) v_vs[i] * (float) v_is[i];
+	for (int i = 0; i < 20; i++) {
+		totalPower += v_vs[i] * currentArray[i];
 	}
-	return (float) totalPower * (float) coefficient;
+	return totalPower * coefficient;
 }
 
-float power_factor (float phaseTimer) {
-	float pf = (float) cos ((float) (phaseTimer * (float) 1/100000 * (float) 360) * (float) 50); 
-	return pf;
-}
 //float calculate_energy
 
