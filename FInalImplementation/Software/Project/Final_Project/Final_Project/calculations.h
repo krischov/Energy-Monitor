@@ -12,5 +12,6 @@
 float calculate_rms_voltage(float *v_vs);
 float calculate_rms_current(float *v_is);
 float calculate_power(float*v_vs, float *v_is);
+float power_factor(float phaseTimer);
 
 #endif /* CALCULATIONS_H_ */
