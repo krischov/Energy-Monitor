@@ -5,31 +5,19 @@
  *  Author: krish
  */ 
 
-#define F_CPU 800000UL
-#include <avr/io.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <util/delay.h>
-#include <avr/interrupt.h>
-#include <stdbool.h>
-#include "uart.h"
 #include "common.h"
-#include "interrupt.h"
-#include "adc.h"
-#include "timer.h"
+
 extern volatile uint8_t flag;
-extern volatile uint8_t flag2;
 extern volatile uint8_t adc_count;
 extern volatile bool sampleFinished;
 volatile uint16_t pfTimer = 0;
 
 ISR(INT0_vect) {
 	sampleFinished = false;
-	PORTB ^= (1 << 5);
 	if(flag == 0){
 		timer_init();
-		timer1_init();
 		flag = 1;
+		timer1_init();
 	}
 	else if(flag == 1 && adc_count == 20){
 		timer_stop_clear();
@@ -47,12 +35,12 @@ ISR(INT1_vect) {
 		flag = 3;
 	}
 	else if(flag == 3 && adc_count == 20){
-		timer_stop_clear();
-		interrupt1_disable();
-		interrupt0_enable();
 		timer1_stop();
 		pfTimer = TCNT1;
 		TCNT1 = 0;
+		timer_stop_clear();
+		interrupt1_disable();
+		interrupt0_enable();
 		flag = 0;
 		ADMUX = 0b01000000;
 		adc_count = 0;

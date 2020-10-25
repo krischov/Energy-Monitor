@@ -4,12 +4,7 @@
  * Created: 20/10/2020 18:09:36
  *  Author: Sai
  */ 
-#include <avr/io.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-#include "uart.h"
+
 #include "common.h"
 
 int ones;

@@ -15,5 +15,4 @@ void interrupt0_disable();
 void interrupt1_disable();
 
 
-
 #endif /* INTERRUPT_H_ */

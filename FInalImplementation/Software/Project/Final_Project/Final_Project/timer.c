@@ -4,13 +4,7 @@
  * Created: 21/10/2020 00:52:46
  *  Author: Sai
  */ 
-#define F_CPU 800000UL
-#include <avr/io.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <util/delay.h>
-#include <avr/interrupt.h>
-#include "timer.h"
+#include "common.h"
 
 ISR (TIMER0_COMPA_vect) {
 	

@@ -4,15 +4,13 @@
  * Created: 21/10/2020 00:52:03
  *  Author: Sai
  */ 
-#include "adc.h"
-#include <avr/io.h>
+#include "common.h"
+
 extern volatile uint16_t adc_vs[20];
 extern volatile uint16_t adc_is[20];
 extern volatile float v_vs[20];
 extern volatile float v_is[20];
 extern volatile uint8_t flag;
-extern volatile uint8_t flag2;
-extern volatile uint8_t channel;
 extern volatile uint8_t adc_count;
 
 

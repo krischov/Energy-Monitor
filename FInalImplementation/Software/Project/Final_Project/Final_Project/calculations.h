@@ -9,9 +9,9 @@
 #ifndef CALCULATIONS_H_
 #define CALCULATIONS_H_
 
-float calculate_rms_voltage(float *v_vs);
-float calculate_rms_current(float *v_is);
-float calculate_power(float*v_vs, float *v_is);
-float power_factor(uint16_t pfTimer); 
+float calculate_rms_voltage(volatile float *v_vs);
+float calculate_rms_current(volatile float *v_is);
+float calculate_power(volatile float*v_vs, volatile float *v_is);
+float power_factor(uint16_t pfTimer);
 
 #endif /* CALCULATIONS_H_ */
