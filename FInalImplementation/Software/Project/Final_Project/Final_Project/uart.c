@@ -64,8 +64,16 @@ void usart_transmit_voltage(int32_t Voltage){ //This function transmits the RMS 
 }
 
 void usart_transmit_current(int32_t Current){ //This function transmits the Peak Current value into UDR0
+	bool flag = false;
+	if (Current < 0) {
+		Current = Current * -1;
+		flag = true;
+	}
 	usart_breakdown_ascii(Current); //Converts the current value into ascii
 	usart_transmit_array("Peak Current is: "); //Transmits the character sentence into UDR0
+	if (flag == true) {
+		usart_transmit('-'); 
+	}
 	usart_transmit(hundreds); //Obtains the 'hundreds' digit of the voltage value
 	usart_transmit(tens); //Obtains the 'tens' digit of the voltage value
 	usart_transmit(ones); //Obtains the 'ones' digit of the voltage value

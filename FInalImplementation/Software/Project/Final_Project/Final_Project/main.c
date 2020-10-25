@@ -52,17 +52,21 @@ int main(void)
 	while (1) {
 		
 		if (enableADC == false) {
-			
-			
 				
+				
+				/*for (int i = 0; i < 20; i++) {
+					
+					usart_transmit_current(v_is[i] * 1000);
+				}*/
 				//int value2 = v_is[i];
 				
 				//usart_transmit_voltage(v_vs[i] * 10);
 				//	_delay_ms(500);
-				//usart_transmit_voltage(calculate_rms_voltage(v_vs, 20)*10);
+				usart_transmit_voltage(calculate_rms_voltage(v_vs, 20)*10);
 				//usart_transmit_current(v_is[i] * 1000);
-				//usart_transmit_current(calculate_rms_current(v_is, 20)*1000);
-				usart_transmit_power(calculate_power(v_vs, v_is));
+				float RMSCurrent = calculate_rms_current(v_is, 20); 
+				usart_transmit_current(calculate_rms_current(v_is, 20)*1000);
+				//usart_transmit_power(calculate_power(v_vs, v_is));
 			sampleFinished = false;
 			enableADC = true;
 		}
