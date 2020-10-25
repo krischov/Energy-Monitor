@@ -10,7 +10,6 @@ extern volatile uint16_t adc_vs[20];
 extern volatile uint16_t adc_is[20];
 extern volatile float v_vs[20];
 extern volatile float v_is[20];
-extern volatile uint8_t flag;
 extern volatile uint8_t adc_count;
 
 
