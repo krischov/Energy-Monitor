@@ -92,7 +92,7 @@ void usart_transmit_power(uint16_t power){ //This function transmits the Power v
 
 
 void usart_transmit_energy(uint16_t ENERGY){
-	if (ENERGY < 1000){
+	if (ENERGY <= 999){
 		usart_breakdown_ascii(ENERGY); //Converts the power value into ascii
 		usart_transmit_array("Energy is: "); //Transmits the character sentence into UDR0
 		usart_transmit(hundreds); //Obtains the 'ones' digit of the voltage value
@@ -103,7 +103,7 @@ void usart_transmit_energy(uint16_t ENERGY){
 		usart_transmit_array("\n\r"); //transmits a new line
 		usart_transmit_array("\n\r");
 	}
-	/*if (ENERGY  999){
+	if (ENERGY > 1000){
 		usart_breakdown_ascii(ENERGY); //Converts the power value into ascii
 		usart_transmit_array("Energy is: "); //Transmits the character sentence into UDR0
 		usart_transmit(thousands); //Obtains the 'ones' digit of the voltage value
@@ -113,5 +113,5 @@ void usart_transmit_energy(uint16_t ENERGY){
 		usart_transmit_array(" W * min");
 		usart_transmit_array("\n\r"); //transmits a new line
 		usart_transmit_array("\n\r"); //transmits a new line
-	}*/	
+	}	
 }
