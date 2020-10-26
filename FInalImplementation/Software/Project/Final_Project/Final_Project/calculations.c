@@ -13,6 +13,7 @@ extern volatile uint8_t energy_count;
 extern float total_energy;
 
 float calculate_rms_voltage(volatile float *v_vs){
+	//riemanns sum calculation
 	float coefficient = (float)1 / ((float) 20/1000);
 	float v_vs_squared_total = 0;
 	for(unsigned int i = 0; i < 20; i++){
@@ -23,6 +24,7 @@ float calculate_rms_voltage(volatile float *v_vs){
 }
 
 float calculate_rms_current(volatile float *v_is){
+	//riemanns sum calculation
 	float coefficient = (float)1 / ((float) 20/1000);
 	float v_is_squared_total = 0;
 	for(unsigned int i = 0; i < 20; i++){
@@ -33,6 +35,7 @@ float calculate_rms_current(volatile float *v_is){
 }
 
 float calculate_power(volatile float *v_vs, volatile float *v_is) {
+	//riemanns sum calculation
 	float coefficient = (float) 1 / (float) 20;
 	float totalPower = 0;
 	for (int i = 0; i < 20; i++) {
@@ -43,8 +46,9 @@ float calculate_power(volatile float *v_vs, volatile float *v_is) {
 }
 
 float power_factor (uint16_t pfTimer) {
+	//uses timer to measure first rising of first waveform, and second rising edge of second waveform, then subtract period (0.2)
 	float pf = (((float) pfTimer * (float) 0.00001) - (float) 0.2) * (float) 18000;
-	return (float) cos(pf * 0.01745329252);
+	return (float) cos(pf * 0.01745329252); //degrees to radians conversion coefficient
 }
 
 float calculate_energy(volatile float *v_vs, volatile float *v_is) {

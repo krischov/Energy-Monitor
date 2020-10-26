@@ -49,11 +49,13 @@ ISR(INT1_vect) {
 }
 
 void interrupt0_enable(){
+	//enables interrupt on rising edge of INT0
 	EICRA = 0b00000011;
 	EIMSK |= (1 << INT0);
 }
 
 void interrupt1_enable(){
+	//enables interrupt on rising edge of INT1
 	EICRA = 0b00001100;
 	EIMSK |= (1 << INT1);
 }
