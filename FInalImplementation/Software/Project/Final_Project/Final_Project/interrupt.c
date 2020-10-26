@@ -20,31 +20,31 @@ ISR(INT0_vect) {
 		timer1_init();
 	}
 	else if(flag == 1 && adc_count == 20){
-		timer_stop_clear();
 		interrupt0_disable();
-		interrupt1_enable();
+		timer_stop_clear();
 		flag = 2;
 		adc_count = 0;
+		interrupt1_enable();
 	}
 }
 
 ISR(INT1_vect) {
 	if(flag == 2){
-		ADMUX = 0b01000001;
 		timer_init();
+		ADMUX = 0b01000001;
 		flag = 3;
 	}
 	else if(flag == 3 && adc_count == 20){
+		interrupt1_disable();
 		timer1_stop();
 		pfTimer = TCNT1;
 		TCNT1 = 0;
 		timer_stop_clear();
-		interrupt1_disable();
-		interrupt0_enable();
 		flag = 0;
 		ADMUX = 0b01000000;
 		adc_count = 0;
 		sampleFinished = true;
+		interrupt0_enable();
 	}
 }
 

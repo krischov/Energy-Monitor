@@ -47,13 +47,6 @@ float power_factor (uint16_t pfTimer) {
 	return (float) cos(pf * 0.01745329252);
 }
 
-/*float calculate_energy() {
-	for (uint8_t int i = 0; i < 20; i++) {
-		energy[i] = v_is[i] + v_vs[i]
-	}
-	energy_count++;
-}*/
-
 float calculate_energy(volatile float *v_vs, volatile float *v_is) {
 	float power_value = (calculate_power(v_vs, v_is) * 0.02) / (float) 60;
 	return power_value;
