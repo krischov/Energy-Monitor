@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c00000002000000030000000083ffff0083ffffffffffffffffffffb90000000c000000c7060000f0030000</PLACEMENT>
+  <PLACEMENT>2c00000002000000030000000083ffff0083ffffffffffffffffffffd301000018000000a7060000fc030000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
   <PWI>
-   <POPUP w="800" x="106" flags="00000003" y="236" h="200" pid="0" iid="-1">
+   <POPUP w="800" x="106" flags="00000002" y="236" h="200" pid="0" iid="-1">
     <PROPERTIES>
      <ITEM name="Message Column Width">649</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
@@ -32,19 +32,19 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="695" x="146" flags="00000001" y="276" h="464" pid="0" iid="30">
+   <POPUP w="695" x="146" flags="00000000" y="276" h="464" pid="0" iid="30">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="695" x="166" flags="00000001" y="296" h="464" pid="0" iid="8">
+   <POPUP w="695" x="166" flags="00000000" y="296" h="464" pid="0" iid="8">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="879" x="868" flags="00008023" y="274" h="553" pid="0" iid="2">
+   <POPUP w="450" x="1061" flags="00008023" y="325" h="250" pid="0" iid="2">
     <PROPERTIES>
      <ITEM name="AutoEcho">0</ITEM>
      <ITEM name="HexMode">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="322" x="206" flags="00000008" y="336" h="312" pid="3" iid="1">
+   <POPUP w="30" x="206" flags="00000008" y="336" h="16" pid="3" iid="1">
     <PROPERTIES/>
    </POPUP>
    <POPUP w="8" x="226" flags="0000000a" y="356" h="1" pid="10" iid="1">
@@ -107,7 +107,7 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="600" x="346" flags="0000002b" y="476" h="400" pid="1" iid="1">
+   <POPUP w="600" x="346" flags="0000002a" y="476" h="400" pid="1" iid="1">
     <PROPERTIES>
      <ITEM name="CaseSensitive">No</ITEM>
      <ITEM name="DISPADDRS">Yes</ITEM>
@@ -118,7 +118,7 @@
      <ITEM name="nBreakpoints">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="300" x="366" flags="0000000b" y="496" h="300" pid="2" iid="1">
+   <POPUP w="300" x="366" flags="0000000a" y="496" h="300" pid="2" iid="1">
     <PROPERTIES>
      <ITEM name="Address Column Width">92</ITEM>
      <ITEM name="AutoResize">No</ITEM>

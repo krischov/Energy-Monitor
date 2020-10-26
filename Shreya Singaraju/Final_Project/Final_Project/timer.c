@@ -5,6 +5,7 @@
  *  Author: Sai
  */ 
 #include "common.h"
+#include "display.h"
 
 ISR (TIMER0_COMPA_vect) {
 	
@@ -30,10 +31,11 @@ void timer1_stop() {
 	TCCR1B = 0b00000000;
 }
 
-
+int flagdisp = 0;
 ISR(TIMER2_COMPA_vect) {
 	
-	Disp_ScanNext();
+	flagdisp = 0;
+	//Disp_ScanNext();
 }
 
 

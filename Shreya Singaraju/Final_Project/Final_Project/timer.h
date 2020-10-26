@@ -13,7 +13,7 @@ void timer_init();
 void timer_stop_clear();
 void timer1_init();
 void timer1_stop();
-void timer2_init();void timer2_init();
+void timer2_init();
 
 
 

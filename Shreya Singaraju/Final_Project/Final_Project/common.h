@@ -19,6 +19,7 @@
 #include <avr/interrupt.h>
 #include <math.h>
 #include <string.h>
+#include <util/delay.h>
 
 #include "uart.h"
 #include "adc.h"

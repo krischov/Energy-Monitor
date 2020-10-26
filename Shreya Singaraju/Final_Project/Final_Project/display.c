@@ -1,10 +1,10 @@
 
 /*
- * display.c
- *
- * Created: 26/10/2020 2:20:28 PM
- *  Author: shrey
- */ 
+* display.c
+*
+* Created: 26/10/2020 2:20:28 PM
+*  Author: shrey
+*/
 
 
 /*
@@ -20,8 +20,21 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+
 //Define macros for seven segment bit patterns
-int patterns[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
+#define SET0 0b00111111;
+#define SET1 0b00000110;
+#define SET2 0b01011011;
+#define SET3 0b01001111;
+#define SET4 0b01100110;
+#define SET5 0b01101101;
+#define SET6 0b01111101;
+#define SET7 0b00000111;
+#define SET8 0b01111111;
+#define SET9 0b01101111;
+
+//Define macros for seven segment bit patterns
+//int patterns[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 
 //Define macros for turning digit displays on and off
 #define DS1ON PORTD &= ~(1<<PIND4);
@@ -51,21 +64,57 @@ int patterns[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 #define SH_DS_OFF PORTC &= ~(1<<PINC4);
 
 
-static volatile uint16_t DispNo = 0;
-static volatile uint8_t DispPos = 1;
+volatile uint16_t DispNo = 0;
+volatile uint8_t DispPos = 1;
 
 
-static volatile uint8_t ones = 0;
-static volatile uint8_t tens = 0;
-static volatile uint8_t hundreds = 0;
-static volatile uint8_t thousands = 0;
+volatile uint8_t ones1 = 0;
+volatile uint8_t tens1 = 0;
+volatile uint8_t hundreds1 = 0;
+volatile uint8_t thousands1 = 0;
+
+extern int flagdisp;
 
 
 uint8_t bit_pattern = 0;
 
 uint8_t segmentDisp(uint8_t num){
 
-	return patterns[num];
+	//return patterns[num];
+	
+	switch (num){
+		case 0:
+		bit_pattern = SET0;
+		break;
+		case 1:
+		bit_pattern = SET1;
+		break;
+		case 2:
+		bit_pattern = SET2;
+		break;
+		case 3:
+		bit_pattern = SET3;
+		break;
+		case 4:
+		bit_pattern = SET4;
+		break;
+		case 5:
+		bit_pattern = SET5;
+		break;
+		case 6:
+		bit_pattern = SET6;
+		break;
+		case 7:
+		bit_pattern = SET7;
+		break;
+		case 8:
+		bit_pattern = SET8;
+		break;
+		case 9:
+		bit_pattern = SET9;
+		break;
+	}
+	return bit_pattern;
 }
 
 void Disp_Init(void){
@@ -91,11 +140,10 @@ void Segment_Init(void){
 void Disp_Set(uint16_t val){
 	
 	DispNo = val;
-	thousands = val/1000;
-	hundreds = (val/100)%10;
-	tens = (val/10)%10;
-	ones = (val)%10;
-	
+	thousands1 = val/1000;
+	hundreds1 = (val/100)%10;
+	tens1 = (val/10)%10;
+	ones1 = (val)%10;
 	
 }
 
@@ -106,14 +154,6 @@ void Disp_Set(uint16_t val){
 //is helpful for utility if they are provided as function arguments
 void Disp_Send(uint8_t val, uint8_t pos){
 	
-	//1. Construct the bit pattern to turn on the segments needed to
-	// display number stored in val
-	//2. Send the bit pattern to the shift-register as in Q2.2
-	//3. Disable all digits
-	//4. Latch the output by toggling SH_ST pin
-	//5. Now, depending on the value of pos, enable the correct digit
-	// (i.e. set Ds1, Ds2, Ds3 and Ds4 appropriately)
-	
 	SH_CP_OFF;
 	SH_ST_OFF;
 	
@@ -122,25 +162,6 @@ void Disp_Send(uint8_t val, uint8_t pos){
 	DS3OFF;
 	DS4OFF;
 	
-	
-	bit_pattern = segmentDisp(val);
-	
-	for(int bit_position = 7; bit_position>=0; bit_position--){
-		
-		if((bit_pattern & (1 << bit_position)) == (1 << bit_position)){
-			SH_DS_ON;
-			TOGGLE_SH_CP;
-		}
-		
-		else {
-			SH_DS_OFF;
-			TOGGLE_SH_CP;
-		}
-		
-		TOGGLE_SH_CP;
-	}
-	
-	TOGGLE_SH_ST;
 	
 	if(pos == 1){
 		DS1ON;
@@ -156,29 +177,49 @@ void Disp_Send(uint8_t val, uint8_t pos){
 	}
 	
 	
+	for(int bit_position = 7; bit_position>=0; bit_position--){
+		
+		bit_pattern = segmentDisp(val);
+		if((bit_pattern & (1 << bit_position)) == (1 << bit_position)){
+			SH_DS_ON;
+			TOGGLE_SH_CP;
+		}
+		
+		else {
+			SH_DS_OFF;
+			TOGGLE_SH_CP;
+		}
+		
+		TOGGLE_SH_CP;
+	}
+	
+	TOGGLE_SH_ST;
+
+	
+	
 }
 
 
 //Send the next digit to Disp_Send() (call this function from a timer ISR)
 void Disp_ScanNext(){
-
-	uint8_t digit = 0;
-	DispPos--;
 	
-	if(DispPos == 0){
-		DispPos = 4;
-		digit = ones;
-	}
-	else if(DispPos == 3){
-		digit = tens;
-	}
-	else if(DispPos == 2){
-		digit = hundreds;
-	}
-	else if(DispPos == 1 ){
-		digit = thousands;
-	}
-	
-	Disp_Send(digit, DispPos);
+		uint8_t digit = 0;
+		
+		if(DispPos == 0){
+			DispPos = 4;
+			digit = ones1;
+		}
+		else if(DispPos == 3){
+			digit = tens1;
+		}
+		else if(DispPos == 2){
+			digit = hundreds1;
+		}
+		else if(DispPos == 1 ){
+			digit = thousands1;
+		}
+		
+		Disp_Send(digit, DispPos);
+		DispPos--;
 	
 }
