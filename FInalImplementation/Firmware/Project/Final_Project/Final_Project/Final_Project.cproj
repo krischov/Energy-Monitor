@@ -147,6 +147,12 @@
     <Compile Include="common.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="display.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="display.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="interrupt.c">
       <SubType>compile</SubType>
     </Compile>

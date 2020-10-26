@@ -38,6 +38,18 @@ int main(void)
 			//summing total W * min and multiplying by 100 to fit the scope defined by our usart code.
 			total_energy += calculate_energy(v_vs, i_is);
 			usart_transmit_energy((total_energy*100));
+			
+			/*code for seven segment code. Seven segment code is implemented but not fully functional. Files and code that are part of the seven segment code : display.c/h & some functions in timer.c/h */
+			/*Any code that is commented out is part of the seven segment display code that is not fully functional.*/
+			
+			
+			/*timer2_init();
+			Segment_Init();
+			Disp_Init();
+			
+			Disp_Set((float) calculate_rms_voltage(v_vs) * (float) 10); //Display seven seg voltage
+			Disp_Set((float) calculate_rms_current(v_is) * (float) 1000 * (float) sqrt(2)); //Display seven seg current
+			Disp_Set((float)calculate_power(v_vs, v_is) * (float) 100); //Display seven seg power */ 
 		}
 	}
 }
