@@ -27,7 +27,7 @@ int main(void)
 			adc_read_voltage();
 			adc_read_current();
 			usart_transmit_voltage((float) calculate_rms_voltage(v_vs) * (float) 10);
-			usart_transmit_current((float) calculate_rms_current(v_is) * (float) 1000 * (float) sqrt(2));
+			usart_transmit_current((float) calculate_rms_current(v_is) * (float) 1000);
 			usart_transmit_power((float)calculate_power(v_vs, v_is) * (float) 100);
 		}
 	}
