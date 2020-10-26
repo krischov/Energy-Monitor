@@ -16,5 +16,6 @@ void usart_breakdown_ascii(uint16_t number);
 void usart_transmit_voltage(int32_t Voltage);
 void usart_transmit_current(int32_t Current);
 void usart_transmit_power(uint16_t power);
+void usart_transmit_energy(uint16_t ENERGY);
 
 #endif /* UART_H_ */

@@ -70,13 +70,14 @@ void usart_transmit_current(int32_t Current){ //This function transmits the Peak
 	if (flag == true) {
 		usart_transmit('-'); 
 	}
-	usart_transmit(thousands);
 	usart_transmit(hundreds); //Obtains the 'hundreds' digit of the voltage value
+	usart_transmit('.');
 	usart_transmit(tens); //Obtains the 'tens' digit of the voltage value
 	usart_transmit(ones); //Obtains the 'ones' digit of the voltage value
-	usart_transmit_array(" mA");
+	usart_transmit_array(" A");
 	usart_transmit_array("\n\r"); //transmits a new line
 }
+
 
 void usart_transmit_power(uint16_t power){ //This function transmits the Power value into UDR0
 	usart_breakdown_ascii(power); //Converts the power value into ascii
@@ -85,6 +86,32 @@ void usart_transmit_power(uint16_t power){ //This function transmits the Power v
 	usart_transmit('.'); //Transmits a decimal point
 	usart_transmit(tens); //Obtains the 'tenths' digit of the voltage value
 	usart_transmit(ones); //Obtains the 'hundredths' digit of the voltage value
+	usart_transmit_array(" W");
 	usart_transmit_array("\n\r"); //transmits a new line
-	usart_transmit_array("\n\r"); //transmits a new line
+}
+
+
+void usart_transmit_energy(uint16_t ENERGY){
+	if (ENERGY < 1000){
+		usart_breakdown_ascii(ENERGY); //Converts the power value into ascii
+		usart_transmit_array("Energy is: "); //Transmits the character sentence into UDR0
+		usart_transmit(hundreds); //Obtains the 'ones' digit of the voltage value
+		usart_transmit('.'); //Transmits a decimal point
+		usart_transmit(tens); //Obtains the 'tenths' digit of the voltage value
+		usart_transmit(ones); //Obtains the 'hundredths' digit of the voltage value
+		usart_transmit_array(" W * min");
+		usart_transmit_array("\n\r"); //transmits a new line
+		usart_transmit_array("\n\r");
+	}
+	/*if (ENERGY  999){
+		usart_breakdown_ascii(ENERGY); //Converts the power value into ascii
+		usart_transmit_array("Energy is: "); //Transmits the character sentence into UDR0
+		usart_transmit(thousands); //Obtains the 'ones' digit of the voltage value
+		usart_transmit(hundreds); //Obtains the 'tenths' digit of the voltage value
+		usart_transmit('.'); //Transmits a decimal point
+		usart_transmit(ones); //Obtains the 'hundredths' digit of the voltage value
+		usart_transmit_array(" W * min");
+		usart_transmit_array("\n\r"); //transmits a new line
+		usart_transmit_array("\n\r"); //transmits a new line
+	}*/	
 }
