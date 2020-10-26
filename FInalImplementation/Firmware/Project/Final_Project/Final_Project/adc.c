@@ -4,58 +4,49 @@
  * Created: 21/10/2020 00:52:03
  *  Author: Sai
  */ 
-#include "adc.h"
-#include <avr/io.h>
+#include "common.h"
+
+extern volatile uint16_t adc_vs[20];
+extern volatile uint16_t adc_is[20];
 extern volatile float v_vs[20];
-extern volatile float v_is[20];
+extern volatile float i_is[20];
+extern volatile uint8_t adc_count;
 
-ISR(INT0_vect) {
-	
-	ADCSRA =
-	timer_init(); 
-}
-
-
+//interrupts every 1ms
 ISR(ADC_vect) {
-	if (ADMUX == 0b01000000) {
-		v_vs = adc_read();
+	//if reading from ADC0, add value to adc_vs array
+	if (ADMUX == 0b01000000 && adc_count < 20) {
+		adc_vs[adc_count] = ADC;
+		adc_count++;
+	}//if reading from ADC1, add value to asc_is array
+	else if (ADMUX == 0b01000001 && adc_count < 20) {
+		adc_is[adc_count] = ADC;
+		adc_count++;
 	}
-	else if (ADMUX == 0b01000001) {
-		v_is = adc_read();
-	}
-	TIFR0 = 0b00000001;
 }
 
-
-/*
 void adc_init() {
+	//Uses AVcc as reference voltage, starts reading from ADC0
 	ADMUX = 0b01000000;
-	ADCSRA = 0b10111110; // WHEN CONVERSION COMPLETE, CHANGES CHANNEL
-	ADCSRB = 0b00000100;
-}
-*/
-
-void adc_init() {
-	ADMUX = 0b01000001;
-	ADCSRA = 0b11101011;
-	ADCSRB = 0b00000100;
+	//Enables ADC in auto trigger mode, enables complete interrupt
+	ADCSRA = 0b11101010;
+	//auto trigger on Timer/Counter0 Compare Match A
+	ADCSRB = 0b00000011;
 }
 
+//converts the raw ADC value into voltage
+void adc_read_voltage(){
+	for (uint8_t i = 0; i < 20; i++) {
+		float adc_val = (float) adc_vs[i];
+		v_vs[i] = ((float)(adc_val * 5) / (float) 1024 - 2.1) / (float) (0.0454016298);//Gvs*Gvo (gain)
+	}
+}
 
- uint16_t adc_read(uint8_t channel){
-	 ADMUX &= 0xF0; //Clear channel selection
-	 ADMUX |= channel; //Set the channel to convert
-	 ADCSRA |= (1 << ADSC); //Starting an ADC conversion
-	 return ADC; //Alternatively you can write return ADC;
- }
- 
- uint32_t adc_convert(uint16_t value){
-	 
-	 float dc_voltage_mv;
-	 uint32_t voltage;
-	 dc_voltage_mv = ((float) value * 5)/1024;
-	 voltage = dc_voltage_mv*100;
-	 return voltage;
- }
- 
+//converts the raw ADC value into current
+void adc_read_current(){
+	for (uint8_t i = 0; i < 20; i++) {
+		float adc_val = (float) adc_is[i];
+		i_is[i] = (float) ((adc_val * 5) / (float) 1024 - 2.1) / (float) (1.146853147);//Gis*Gio (gain)
+	}
+}
  
