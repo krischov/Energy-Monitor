@@ -5,38 +5,39 @@
  * Author : Sai
  */ 
 
-#define F_CPU 800000UL
-#include <avr/io.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <util/delay.h>
-#include "uart.h"
 #include "common.h"
-#include "adc.h"
-#include "timer.h"
-#include "display.h"
-#include "calculations.h"
 
-volatile uint8_t channel = 0b01000000;
+volatile uint16_t adc_vs[20];
+volatile uint16_t adc_is[20];
 volatile float v_vs[20];
-volatile float v_is[20];
-volatile uint16_t RMSVoltage;
-volatile uint16_t PeakCurrent;
-volatile uint16_t Power;
+volatile float i_is[20];
+volatile float energy[20];
+volatile uint8_t energy_count = 0;
+volatile uint8_t flag = 0;
+volatile uint8_t adc_count = 0;
+volatile bool sampleFinished = false;
+float total_energy = 0;
 
 int main(void)
 {	
-	//float v_vs[20];
-	//float v_is[20];
 	adc_init();
 	timer_init();
-	
-	usart_init(BAUDRATE); //initializes uart with baud rate of BAUDRATE value
+	usart_init(BAUDRATE);
+	interrupt0_enable();
+	sei();
 	while (1) {
-		usart_transmit_voltage(RMSVoltage); //calls function to transmit RMSVoltage value
-		usart_transmit_current(PeakCurrent); //calls function to transmit PeakCurrent value
-		usart_transmit_power(Power); //calls function to transmit Power value
-		_delay_ms(1000); //sets a delay for 1 second
-
+		if (sampleFinished == true) {
+			adc_read_voltage();
+			adc_read_current();
+			//transmitting rms voltage through usart. multiply by 10 to fit the scope defined by our usart code
+			usart_transmit_voltage((float) calculate_rms_voltage(v_vs) * (float) 10); 
+			//transmitting rms voltage through usart. multiply by 100 to fit the scope defined by our usart code
+			usart_transmit_current((float) calculate_rms_current(i_is) * (float) 100 * (float) sqrt(2)); 
+			//transmitting rms voltage through usart. multiply by 100 to fit the scope defined by our usart code
+			usart_transmit_power((float)calculate_power(v_vs, i_is) * (float) 100);
+			//summing total W * min and multiplying by 100 to fit the scope defined by our usart code.
+			total_energy += calculate_energy(v_vs, i_is);
+			usart_transmit_energy((total_energy*100));
+		}
 	}
 }

@@ -10,7 +10,9 @@
 #define ADC_H_
 
 void adc_init();
-uint16_t adc_read(uint8_t channel);
+void adc_read_voltage();
+void adc_read_current();
 uint32_t adc_convert(uint16_t value);
+//void usart_transmit_current(uint16_t Current);
 
 #endif /* ADC_H_ */

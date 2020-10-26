@@ -4,23 +4,19 @@
  * Created: 20/10/2020 18:09:36
  *  Author: Sai
  */ 
-#include <avr/io.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <string.h>
-#include "uart.h"
+
 #include "common.h"
 
 int ones;
 int tens;
 int hundreds;
-
+int thousands;
 
 void usart_init(uint32_t baud_rate){ // This function sets the initial values of the registers in the microcontroller.
-	UCSR0A |= 0b00000000; //setting bit 5 in register UCSR0A to zero
-	UCSR0B |= (1 << TXEN0); //setting bit 3 in register UCSR0B to 1
-	UCSR0C |= (1 << UCSZ01); //setting bit 2 in register UCSR0C to 1
-	UCSR0C |= (1 << UCSZ00); //setting bit 1 in register UCSR0C to 1
+	UCSR0A |= 0b00000000;
+	UCSR0B |= (1 << TXEN0); 
+	UCSR0C |= (1 << UCSZ01); 
+	UCSR0C |= (1 << UCSZ00); 
 	UBRR0 =  800000 / (16 * baud_rate) - 1; //UBRR register calculation for baud rate.
 }
 
@@ -41,26 +37,47 @@ void usart_breakdown_ascii(uint16_t number){ //This function converts uint16_t n
 	ones = ((number/1)%10) + 48; //Adds the number 48 to uint16_t values based on ascii table
 	tens = ((number/10)%10) + 48;
 	hundreds = ((number/100)%10) + 48;
+	thousands = ((number/1000)%10) + 48;
 }
 
-void usart_transmit_voltage(uint16_t Voltage){ //This function transmits the RMS Voltage value into UDR0
+void usart_transmit_voltage(int32_t Voltage){ //This function transmits the RMS Voltage value into UDR0
+	bool flag = false;
+	if (Voltage < 0) {
+		Voltage = Voltage * -1; 
+		flag = true;
+	}
 	usart_breakdown_ascii(Voltage); //Converts the RMS Voltage value into ascii
 	usart_transmit_array("RMS Voltage is: "); //Transmits the character sentence into UDR0
+	if (flag == true) {
+		usart_transmit('-');
+	}
 	usart_transmit(hundreds); //Obtains the 'tens' digit of the voltage value
 	usart_transmit(tens); //Obtains the 'ones' digit of the voltage value
 	usart_transmit('.'); //Transmits a decimal point
 	usart_transmit(ones);//Obtains the 'tenths' digit of the voltage value
+	usart_transmit_array(" V_RMS");
 	usart_transmit_array("\n\r"); //transmits a new line
 }
 
-void usart_transmit_current(uint16_t Current){ //This function transmits the Peak Current value into UDR0
+void usart_transmit_current(int32_t Current){ //This function transmits the Peak Current value into UDR0
+	bool flag = false;
+	if (Current < 0) {
+		Current = Current * -1;
+		flag = true;
+	}
 	usart_breakdown_ascii(Current); //Converts the current value into ascii
 	usart_transmit_array("Peak Current is: "); //Transmits the character sentence into UDR0
+	if (flag == true) {
+		usart_transmit('-'); 
+	}
 	usart_transmit(hundreds); //Obtains the 'hundreds' digit of the voltage value
+	usart_transmit('.');
 	usart_transmit(tens); //Obtains the 'tens' digit of the voltage value
 	usart_transmit(ones); //Obtains the 'ones' digit of the voltage value
+	usart_transmit_array(" A");
 	usart_transmit_array("\n\r"); //transmits a new line
 }
+
 
 void usart_transmit_power(uint16_t power){ //This function transmits the Power value into UDR0
 	usart_breakdown_ascii(power); //Converts the power value into ascii
@@ -69,6 +86,32 @@ void usart_transmit_power(uint16_t power){ //This function transmits the Power v
 	usart_transmit('.'); //Transmits a decimal point
 	usart_transmit(tens); //Obtains the 'tenths' digit of the voltage value
 	usart_transmit(ones); //Obtains the 'hundredths' digit of the voltage value
+	usart_transmit_array(" W");
 	usart_transmit_array("\n\r"); //transmits a new line
-	usart_transmit_array("\n\r"); //transmits a new line
+}
+
+
+void usart_transmit_energy(uint16_t ENERGY){
+	if (ENERGY <= 999){
+		usart_breakdown_ascii(ENERGY); //Converts the power value into ascii
+		usart_transmit_array("Energy is: "); //Transmits the character sentence into UDR0
+		usart_transmit(hundreds); //Obtains the 'ones' digit of the voltage value
+		usart_transmit('.'); //Transmits a decimal point
+		usart_transmit(tens); //Obtains the 'tenths' digit of the voltage value
+		usart_transmit(ones); //Obtains the 'hundredths' digit of the voltage value
+		usart_transmit_array(" W * min");
+		usart_transmit_array("\n\r"); //transmits a new line
+		usart_transmit_array("\n\r");
+	}
+	if (ENERGY > 1000){
+		usart_breakdown_ascii(ENERGY); //Converts the power value into ascii
+		usart_transmit_array("Energy is: "); //Transmits the character sentence into UDR0
+		usart_transmit(thousands); //Obtains the 'ones' digit of the voltage value
+		usart_transmit(hundreds); //Obtains the 'tenths' digit of the voltage value
+		usart_transmit('.'); //Transmits a decimal point
+		usart_transmit(ones); //Obtains the 'hundredths' digit of the voltage value
+		usart_transmit_array(" W * min");
+		usart_transmit_array("\n\r"); //transmits a new line
+		usart_transmit_array("\n\r"); //transmits a new line
+	}	
 }
