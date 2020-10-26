@@ -11,9 +11,12 @@ volatile uint16_t adc_vs[20];
 volatile uint16_t adc_is[20];
 volatile float v_vs[20];
 volatile float v_is[20];
+volatile float energy[20];
+volatile uint8_t energy_count = 0;
 volatile uint8_t flag = 0;
 volatile uint8_t adc_count = 0;
 volatile bool sampleFinished = false;
+float total_energy = 0;
 
 int main(void)
 {	
@@ -27,8 +30,15 @@ int main(void)
 			adc_read_voltage();
 			adc_read_current();
 			usart_transmit_voltage((float) calculate_rms_voltage(v_vs) * (float) 10);
-			usart_transmit_current((float) calculate_rms_current(v_is) * (float) 1000);
+			usart_transmit_current((float) calculate_rms_current(v_is) * (float) 1000 * (float) sqrt(2));
 			usart_transmit_power((float)calculate_power(v_vs, v_is) * (float) 100);
+			if (total_energy >= 999) {
+				total_energy = 999;
+			}
+			else {
+				total_energy += calculate_energy(v_vs, v_is);
+			}
+			
 		}
 	}
 }

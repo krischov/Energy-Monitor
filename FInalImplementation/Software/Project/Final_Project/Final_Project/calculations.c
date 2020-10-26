@@ -8,6 +8,9 @@
 #include "common.h"
 
 extern volatile uint16_t pfTimer;
+extern volatile float energy[20];
+extern volatile uint8_t energy_count;
+extern float total_energy;
 
 float calculate_rms_voltage(volatile float *v_vs){
 	float coefficient = (float)1 / ((float) 20/1000);
@@ -38,9 +41,20 @@ float calculate_power(volatile float *v_vs, volatile float *v_is) {
 	float powerFactor = power_factor(pfTimer);
 	return (float) totalPower * coefficient * powerFactor;
 }
+
 float power_factor (uint16_t pfTimer) {
-	float pf_0 = (float) pfTimer * (float) 0.00001;
-	float pf_1 = pf_0 - (float) 0.02;
-	float pf_2 = pf_1 * (float) 18000;
-	return (float) cos(pf_2 * 0.01745329252);
+	float pf = (((float) pfTimer * (float) 0.00001) - (float) 0.2) * (float) 18000;
+	return (float) cos(pf * 0.01745329252);
+}
+
+/*float calculate_energy() {
+	for (uint8_t int i = 0; i < 20; i++) {
+		energy[i] = v_is[i] + v_vs[i]
+	}
+	energy_count++;
+}*/
+
+float calculate_energy(volatile float *v_vs, volatile float *v_is) {
+	float power_value = (calculate_power(v_vs, v_is) * 0.02) / (float) 60;
+	return power_value;
 }
