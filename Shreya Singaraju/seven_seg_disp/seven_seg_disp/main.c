@@ -21,7 +21,7 @@ volatile uint16_t counter = 0;
 
 int main(void)
 {
-	timer0_init();
+	timer2_init();
 	Segment_Init();
 	Disp_Init();
 	

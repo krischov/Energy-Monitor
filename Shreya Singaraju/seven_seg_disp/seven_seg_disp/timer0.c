@@ -15,17 +15,17 @@
 #include <stdint.h>
 #include <util/delay.h>
 
-ISR(TIMER0_COMPA_vect) {
+ISR(TIMER2_COMPA_vect) {
 	
 	Disp_ScanNext();
 }
 
 
-void timer0_init()
+void timer2_init()
 {
-	TCCR0A = 0b00000010; // Initializes TCCR0A Register to CTC mode
-	TCCR0B = 0b00000011; // Initializes TCCR0B Register to CTC mode, sets prescaler
-	TIMSK0 = 0b00000010; //Enable output compare match A interrupt
-	OCR0A = 124; // Sets 124 as value to count to (period of 10ms)
+	TCCR2A = 0b00000010; // Initializes TCCR0A Register to CTC mode
+	TCCR2B = 0b00000011; // Initializes TCCR0B Register to CTC mode, sets prescaler
+	TIMSK2 = 0b00000010; //Enable output compare match A interrupt
+	OCR2A = 124; // Sets 124 as value to count to (period of 10ms)
 }
 

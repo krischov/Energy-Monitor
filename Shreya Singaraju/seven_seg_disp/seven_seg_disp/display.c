@@ -13,16 +13,7 @@
 #include <util/delay.h>
 
 //Define macros for seven segment bit patterns 
-#define SET0 0b00111111;
-#define SET1 0b00000110;
-#define SET2 0b01011011;
-#define SET3 0b01001111;
-#define SET4 0b01100110;
-#define SET5 0b01101101;
-#define SET6 0b01111101;
-#define SET7 0b00000111;
-#define SET8 0b01111111;
-#define SET9 0b01101111;
+int patterns[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 
 //Define macros for turning digit displays on and off
 #define DS1ON PORTD &= ~(1<<PIND4);
@@ -66,40 +57,7 @@ uint8_t bit_pattern = 0;
 
 uint8_t segmentDisp(uint8_t num){
 
-	
-	switch (num){
-		case 0:
-		bit_pattern = SET0;
-		break;
-		case 1:
-		bit_pattern = SET1;
-		break;
-		case 2:
-		bit_pattern = SET2;
-		break;
-		case 3:
-		bit_pattern = SET3;
-		break;
-		case 4:
-		bit_pattern = SET4;
-		break;
-		case 5:
-		bit_pattern = SET5;
-		break;
-		case 6:
-		bit_pattern = SET6;
-		break;
-		case 7:
-		bit_pattern = SET7;
-		break;
-		case 8:
-		bit_pattern = SET8;
-		break;
-		case 9:
-		bit_pattern = SET9;
-		break;
-	}
-	return bit_pattern;
+	return patterns[num];
 }
 
 void Disp_Init(void){
