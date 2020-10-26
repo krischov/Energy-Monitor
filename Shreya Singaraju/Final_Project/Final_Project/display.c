@@ -33,8 +33,6 @@
 #define SET8 0b01111111;
 #define SET9 0b01101111;
 
-//Define macros for seven segment bit patterns
-//int patterns[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 
 //Define macros for turning digit displays on and off
 #define DS1ON PORTD &= ~(1<<PIND4);
@@ -73,14 +71,12 @@ volatile uint8_t tens1 = 0;
 volatile uint8_t hundreds1 = 0;
 volatile uint8_t thousands1 = 0;
 
-extern int flagdisp;
 
 
 uint8_t bit_pattern = 0;
 
+//This function finds the bit pattern to implement in the seven segment display
 uint8_t segmentDisp(uint8_t num){
-
-	//return patterns[num];
 	
 	switch (num){
 		case 0:
@@ -117,6 +113,7 @@ uint8_t segmentDisp(uint8_t num){
 	return bit_pattern;
 }
 
+//Initializes the display pins as outputs
 void Disp_Init(void){
 	
 	
@@ -135,8 +132,7 @@ void Segment_Init(void){
 	
 }
 
-//Sets the value to be displayed across the four digits
-//This is better than sharing the global variable between files
+//Sets the value to be displayed across the four digits and splits the value up into digits
 void Disp_Set(uint16_t val){
 	
 	DispNo = val;
@@ -149,9 +145,7 @@ void Disp_Set(uint16_t val){
 
 
 
-//Render a single digit value (val) on the display at position (pos)
-//Even though these variables can be derived from the global DispNo and DispPos it
-//is helpful for utility if they are provided as function arguments
+//Sends the bits of a given value into the shift register
 void Disp_Send(uint8_t val, uint8_t pos){
 	
 	SH_CP_OFF;
@@ -161,26 +155,12 @@ void Disp_Send(uint8_t val, uint8_t pos){
 	DS2OFF;
 	DS3OFF;
 	DS4OFF;
+		
 	
-	
-	if(pos == 1){
-		DS1ON;
-	}
-	else if(pos == 2){
-		DS2ON;
-	}
-	else if(pos == 3){
-		DS3ON;
-	}
-	else if (pos == 4){
-		DS4ON;
-	}
-	
-	
-	for(int bit_position = 7; bit_position>=0; bit_position--){
+	for(int bit_position = 7; bit_position>=0; bit_position--){ 
 		
 		bit_pattern = segmentDisp(val);
-		if((bit_pattern & (1 << bit_position)) == (1 << bit_position)){
+		if((bit_pattern & (1 << bit_position)) == (1 << bit_position)){ //Checks if each bit is 1 or 0 from MSB to LSB and turns display on accordingly
 			SH_DS_ON;
 			TOGGLE_SH_CP;
 		}
@@ -193,33 +173,47 @@ void Disp_Send(uint8_t val, uint8_t pos){
 		TOGGLE_SH_CP;
 	}
 	
-	TOGGLE_SH_ST;
+	TOGGLE_SH_ST; //Toggles twice to read on rising edge each time
+	
+	//Turns the display segment of each digit ON, based on the value position
+	
+		if(pos == 1){
+			DS1ON;
+		}
+		else if(pos == 2){
+			DS2ON;
+		}
+		else if(pos == 3){
+			DS3ON;
+		}
+		else if (pos == 4){
+			DS4ON;
+		}
 
-	
-	
+
 }
 
 
-//Send the next digit to Disp_Send() (call this function from a timer ISR)
+//Sets the next digit to a display position (called in timer2 ISR)
 void Disp_ScanNext(){
 	
 		uint8_t digit = 0;
 		
 		if(DispPos == 0){
 			DispPos = 4;
-			digit = ones1;
+			digit = ones1; //ones digit is set to display position 0
 		}
 		else if(DispPos == 3){
-			digit = tens1;
+			digit = tens1; //tens digit set to display position 3
 		}
 		else if(DispPos == 2){
-			digit = hundreds1;
+			digit = hundreds1; //hundreds digit set to display position 2
 		}
 		else if(DispPos == 1 ){
-			digit = thousands1;
+			digit = thousands1; //thousands digit set to display position 1
 		}
 		
-		Disp_Send(digit, DispPos);
+		Disp_Send(digit, DispPos); //sends value and position to Disp_Send() into shift register 
 		DispPos--;
 	
 }

@@ -31,11 +31,10 @@ void timer1_stop() {
 	TCCR1B = 0b00000000;
 }
 
-int flagdisp = 0;
+
 ISR(TIMER2_COMPA_vect) {
-	
-	flagdisp = 0;
-	//Disp_ScanNext();
+
+	//Disp_ScanNext(); //Sends the next digit into shift register for seven seg display every 10ms
 }
 
 

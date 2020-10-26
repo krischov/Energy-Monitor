@@ -37,19 +37,13 @@ int main(void)
 			usart_transmit_current((float) calculate_rms_current(v_is) * (float) 1000 * (float) sqrt(2));
 			usart_transmit_power((float)calculate_power(v_vs, v_is) * (float) 100);
 				
-			timer2_init();
+			/*timer2_init();
 			Segment_Init();
 			Disp_Init();
 			
-			if(flagdisp == 0){
-				Disp_ScanNext();
-				Disp_Set((float) calculate_rms_voltage(v_vs) * (float) 10);
-				flagdisp = 1;
-			}
-
-			
-			//Disp_Set((float) calculate_rms_current(v_is) * (float) 1000 * (float) sqrt(2));
-			//Disp_Set((float)calculate_power(v_vs, v_is) * (float) 100);*/
+			Disp_Set((float) calculate_rms_voltage(v_vs) * (float) 10); //Display seven seg voltage
+			Disp_Set((float) calculate_rms_current(v_is) * (float) 1000 * (float) sqrt(2)); //Display seven seg current
+			Disp_Set((float)calculate_power(v_vs, v_is) * (float) 100); //Display seven seg power */ 
 		}
 	}
 }
